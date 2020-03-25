@@ -1,0 +1,294 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Title</title>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}"><!-- fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i"><!-- css -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-4.2.1/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel-2.3.4/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"><!-- js -->
+    <script src="{% static 'vendor/jquery-3.3.1/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-4.2.1/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/owl-carousel-2.3.4/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'vendor/nouislider-12.1.0/nouislider.min.js' %}"></script>
+    <script src="{% static 'js/number.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'vendor/svg4everybody-2.1.9/svg4everybody.min.js' %}"></script>
+    <script>svg4everybody();</script><!-- font - fontawesome -->
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome-5.6.1/css/all.min.css' %}"><!-- font - stroyka -->
+    <link rel="stylesheet" href="{% static 'fonts/stroyka/stroyka.css' %}">
+
+
+</head>
+<body>
+<div id="quickview-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content"></div>
+    </div>
+</div><!-- quickview-modal / end --><!-- mobilemenu -->
+
+
+<div class="site">
+    <header class="site__header d-lg-block d-none">
+        <div class="site-header"><!-- .topbar -->
+            <div class="site-header__topbar topbar">
+                <div class="topbar__container container">
+                    <div class="topbar__row">
+                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Про нас </a></div>
+                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Контакты</a></div>
+                        {#                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Store Location</a></div>#}
+                        {#                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Track Order</a></div>#}
+                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Статьи</a>
+                        </div>
+                        <div class="topbar__spring"></div>
+                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Войти</a>
+                        </div>
+{#                        <div class="topbar__item">#}
+{#                            <div class="topbar-dropdown">#}
+{#                                <button class="topbar-dropdown__btn" type="button">Мой Аккаунт#}
+{#                                    <svg width="7px" height="5px">#}
+{#                                        <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-7x5"></use>#}
+{#                                    </svg>#}
+{#                                </button>#}
+{#                                <div class="topbar-dropdown__body"><!-- .menu -->#}
+{#                                    <ul class="menu menu--layout--topbar">#}
+{#                                        <li><a href="#">Вйоти</a></li>#}
+{#                                        <li><a href="#">Register</a></li>#}
+{#                                        <li><a href="#">Orders</a></li>#}
+{#                                        <li><a href="#">Addresses</a></li>#}
+{#                                    </ul><!-- .menu / end --></div>#}
+{#                            </div>#}
+{#                        </div>#}
+
+
+                    </div>
+                </div>
+            </div><!-- .topbar / end -->
+
+            <div class="site-header__nav-panel">
+                <div class="nav-panel">
+                    <div class="nav-panel__container container">
+                        <div class="nav-panel__row">
+                            <div class="nav-panel__logo"><!-- .departments -->
+                                <a href="{% url 'home' %}">
+                                    <h1 style="margin-top: 10px">Kaz Tyre</h1>
+                                </a>
+                            </div>
+                            <div class="nav-panel__nav-links nav-links">
+                                <ul class="nav-links__list">
+
+
+                                    {% for category in categories %}
+                                        <li class="nav-links__item nav-links__item--with-submenu">
+                                            <a href="{% url 'product_manager_category_detail' category.slug %}"><span>{{ category.title }}</span></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div><!-- .nav-links / end -->
+                            <div class="nav-panel__indicators">
+                                <div class="indicator">
+                                    <a href="#" class="indicator__button">
+                                        <span class="indicator__area">
+                                            <svg width="20px" height="20px">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#heart-20"></use>
+                                            </svg>
+                                            <span class="indicator__value">0</span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div class="indicator indicator--trigger--click">
+                                    <a href="#" class="indicator__button">
+                                        <span class="indicator__area"><svg width="20px" height="20px">
+                                            <use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg>
+                                            <span class="indicator__value">3</span></span>
+                                    </a>
+                                    <div class="indicator__dropdown"><!-- .dropcart -->
+                                        <div class="dropcart">
+                                            <div class="dropcart__products-list">
+                                                <div class="dropcart__product">
+                                                    <div class="dropcart__product-image"><a href="product.html"><img
+                                                            src="{% static 'images/products/product-1.jpg' %}"
+                                                            alt=""></a></div>
+                                                    <div class="dropcart__product-info">
+                                                        <div class="dropcart__product-name"><a href="product.html">Electric
+                                                            Planer Brandix KL370090G 300 Watts</a></div>
+                                                        <ul class="dropcart__product-options">
+                                                            <li>Color: Yellow</li>
+                                                            <li>Material: Aluminium</li>
+                                                        </ul>
+                                                        <div class="dropcart__product-meta"><span
+                                                                class="dropcart__product-quantity">2</span> x <span
+                                                                class="dropcart__product-price">$699.00</span></div>
+                                                    </div>
+                                                    <button type="button"
+                                                            class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
+                                                        <svg width="10px" height="10px">
+                                                            <use xlink:href="{% static 'images/sprite.svg' %}#cross-10"></use>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                            <div class="dropcart__totals">
+                                                <table>
+                                                    <tr>
+                                                        <th>Subtotal</th>
+                                                        <td>$5,877.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Shipping</th>
+                                                        <td>$25.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Tax</th>
+                                                        <td>$0.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Total</th>
+                                                        <td>$5,902.00</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="dropcart__buttons"><a class="btn btn-secondary"
+                                                                              href="cart.html">View Cart</a> <a
+                                                    class="btn btn-primary" href="checkout.html">Checkout</a></div>
+                                        </div><!-- .dropcart / end --></div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </header><!-- desktop site__header / end --><!-- site__body -->
+
+    {% block content %}
+
+    {% endblock %}
+    <footer class="site__footer">
+        <div class="site-footer">
+            <div class="container">
+                <div class="site-footer__widgets">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="site-footer__widget footer-contacts"><h5 class="footer-contacts__title">Связаться с нами</h5>
+                                <div class="footer-contacts__text">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                    elit. Integer in feugiat lorem. Pellentque ac placerat tellus.
+                                </div>
+                                <ul class="footer-contacts__contacts">
+                                    <li><i class="footer-contacts__icon fas fa-globe-americas"></i> Адрес
+                                    </li>
+                                    <li><i class="footer-contacts__icon far fa-envelope"></i> pochta@gmail.com</li>
+                                    <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> +7 777 777 777
+                                    </li>
+                                    <li><i class="footer-contacts__icon far fa-clock"></i> Пон-Пят 09:00 - 18:00</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="site-footer__widget footer-links"><h5 class="footer-links__title">
+                                Информация</h5>
+                                <ul class="footer-links__list">
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Про нас</a>
+                                    </li>
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Информация о доставке</a></li>
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Политика Конфиденциальности</a></li>
+{#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Brands</a></li>#}
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Контакты</a></li>
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Возврат</a>
+                                    </li>
+{#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Site Map</a>#}
+{#                                    </li>#}
+                                </ul>
+                            </div>
+                        </div>
+{#                        <div class="col-6 col-md-3 col-lg-2">#}
+{#                            <div class="site-footer__widget footer-links"><h5 class="footer-links__title">My#}
+{#                                Account</h5>#}
+{#                                <ul class="footer-links__list">#}
+{#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Store#}
+{#                                        Location</a></li>#}
+{#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Order#}
+{#                                        History</a></li>#}
+{#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Wish List</a>#}
+{#                                    </li>#}
+{#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Newsletter</a>#}
+{#                                    </li>#}
+{#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Specials</a>#}
+{#                                    </li>#}
+{#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Gift#}
+{#                                        Certificates</a></li>#}
+{#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Affiliate</a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </div>#}
+{#                        </div>#}
+                        <div class="col-12 col-md-12 col-lg-4">
+                            <div class="site-footer__widget footer-newsletter"><h5 class="footer-newsletter__title">
+                                Социальные сети</h5>
+
+{#                                <div class="footer-newsletter__text footer-newsletter__text--social">Follow us on social#}
+{#                                    networks#}
+                                </div>
+                                <ul class="footer-newsletter__social-links">
+                                    <li class="footer-newsletter__social-link footer-newsletter__social-link--facebook">
+                                        <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li class="footer-newsletter__social-link footer-newsletter__social-link--twitter">
+                                        <a href="https://www.twitter.com/" target="_blank"><i
+                                                class="fab fa-twitter"></i></a></li>
+                                    <li class="footer-newsletter__social-link footer-newsletter__social-link--youtube">
+                                        <a href="https://www.youtube.com/" target="_blank"><i
+                                                class="fab fa-youtube"></i></a></li>
+                                    <li class="footer-newsletter__social-link footer-newsletter__social-link--instagram">
+                                        <a href="https://www.instagram.com/" target="_blank"><i
+                                                class="fab fa-instagram"></i></a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{#                <div class="site-footer__bottom">#}
+{#                    <div style="margin-left: 18%" class="site-footer__copyright">Разработано <a target="_blank" href="http://desite.pro/">DESITE.PRO</a></div>#}
+{#                </div>#}
+            </div>
+        </div>
+    </footer><!-- site__footer / end --></div><!-- site / end --></body>
+</div>
+</body>
+</html>
+
+{#<html>#}
+{#	<head>#}
+{#		<!-- Compiled and minified CSS -->#}
+{#		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">#}
+{#		<!-- Compiled and minified JavaScript -->#}
+{#		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>#}
+{#		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>#}
+{#	</head>#}
+{#	<body>#}
+{##}
+{#		<nav class="light-blue lighten-1" role="navigation">#}
+{##}
+{#			<div class="nav-wrapper container"><a id="logo-container" href="{% url 'home' %}" class="brand-logo">Shop</a>#}
+{##}
+{#            <ul class="right hide-on-med-and-down">#}
+{#                    {% for category in categories %}#}
+{#                    <li>#}
+{#                        <a href="/category/detail/{{ category.slug }}">{{ category.title }}</a>#}
+{#                    </li>#}
+{#                    {% endfor %}#}
+{#                </ul>#}
+{##}
+{#		    </div>#}
+{#	    </nav>#}
+{#	    <div class="container">#}
+{#	    	<div class="section">#}
+{#	    		{% block content %} Sorry, an error has occured. Please contact us. {% endblock %}#}
+{#	    	</div>#}
+{#    	</div>#}
+{#	</body>#}
+{#</html>#}

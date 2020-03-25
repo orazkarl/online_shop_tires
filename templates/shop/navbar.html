@@ -1,0 +1,8 @@
+{% load static %}
+<ul class="right hide-on-med-and-down">
+    {% for category in categories %}
+    <li>
+        <a href="/category/detail/{{ category.slug }}">{{ category.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
