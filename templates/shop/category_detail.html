@@ -27,32 +27,7 @@
                         <div class="products-view">
                             <div class="products-view__options">
                                 <div class="view-options">
-                                    <div class="view-options__layout">
-                                        <div class="layout-switcher">
-                                            <div class="layout-switcher__list">
-                                                <button data-layout="grid-4-full" data-with-features="false"
-                                                        title="Grid" type="button"
-                                                        class="layout-switcher__button layout-switcher__button--active">
-                                                    <svg width="16px" height="16px">
-                                                        <use xlink:href="{% static 'images/sprite.svg' %}#layout-grid-16x16"></use>
-                                                    </svg>
-                                                </button>
-                                                <button data-layout="grid-4-full" data-with-features="true"
-                                                        title="Grid With Features" type="button"
-                                                        class="layout-switcher__button">
-                                                    <svg width="16px" height="16px">
-                                                        <use xlink:href="{% static 'images/sprite.svg' %}#layout-grid-with-details-16x16"></use>
-                                                    </svg>
-                                                </button>
-                                                <button data-layout="list" data-with-features="false" title="List"
-                                                        type="button" class="layout-switcher__button">
-                                                    <svg width="16px" height="16px">
-                                                        <use xlink:href="{% static 'images/sprite.svg' %}#layout-list-16x16"></use>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+
 {#                                    <div class="view-options__legend">Показано 6 из 98 товаров</div>#}
                                     <div class="view-options__divider"></div>
                                     <div class="view-options__control"><label for="">Сортировка</label>
@@ -73,13 +48,7 @@
                                  data-with-features="false">
                                 <div class="products-list__body">
                                 {% for product_item in products_in_category %}
-            <tr>
 
-                </td>
-{#                <td>{{ product_item.description }}</td>#}
-{#                <td>${{ product_item.price }}</td>#}
-
-            </tr>
 
                                     <div class="products-list__item">
                                         <div class="product-card">
@@ -91,7 +60,7 @@
 {#                                            <div class="product-card__badges-list">#}
 {#                                                <div class="product-card__badge product-card__badge--new">New</div>#}
 {#                                            </div>#}
-                                            <div class="product-card__image"><a href="{% url 'product_manager_product_detail' product_item.slug %}"><img src="{{ product_item.product_image }}" alt=""></a></div>
+                                            <div class="product-card__image"><a href="{% url 'product_manager_product_detail' product_item.slug %}"><img src="{{ product_item.product_image.first.image.url }}" alt=""></a></div>
                                             <div class="product-card__info">
                                                 <div class="product-card__name"><a href="{% url 'product_manager_product_detail' product_item.slug %}">{{ product_item.name }}</a></div>
 {#                                                <div class="product-card__rating">#}
@@ -185,24 +154,15 @@
 {#                                                    </div>#}
 {#                                                    <div class="product-card__rating-legend">9 Reviews</div>#}
 {#                                                </div>#}
-                                                <ul class="product-card__features-list">
-                                                    <li>Speed: 750 RPM</li>
-                                                    <li>Power Source: Cordless-Electric</li>
-                                                    <li>Battery Cell Type: Lithium</li>
-                                                    <li>Voltage: 20 Volts</li>
-                                                    <li>Battery Capacity: 2 Ah</li>
-                                                </ul>
                                             </div>
+
                                             <div class="product-card__actions">
-                                                <div class="product-card__availability">Availability: <span
-                                                        class="text-success">In Stock</span></div>
-                                                <div class="product-card__prices">$749.00</div>
+                                                <div class="product-card__prices">{{ product_item.price }} ₸</div>
                                                 <div class="product-card__buttons">
                                                     <button class="btn btn-primary product-card__addtocart"
-                                                            type="button">Add To Cart
-                                                    </button>
-                                                    <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
-                                                            type="button">Add To Cart
+                                                            type="button"><svg width="16px" height="16px">
+                                                            <use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use>
+                                                        </svg>
                                                     </button>
                                                     <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
                                                             type="button">
@@ -211,13 +171,6 @@
                                                         </svg>
                                                         <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                                     </button>
-                                                    <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                                            type="button">
-                                                        <svg width="16px" height="16px">
-                                                            <use xlink:href="{% static 'images/sprite.svg' %}#compare-16"></use>
-                                                        </svg>
-                                                        <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
-                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -225,28 +178,28 @@
 {% endfor %}
                                 </div>
                             </div>
-                            <div class="products-view__pagination">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled"><a class="page-link page-link--with-arrow" href="#"
-                                                                      aria-label="Previous">
-                                        <svg class="page-link__arrow page-link__arrow--left" aria-hidden="true"
-                                             width="8px" height="13px">
-                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-left-8x13"></use>
-                                        </svg>
-                                    </a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link page-link--with-arrow" href="#"
-                                                             aria-label="Next">
-                                        <svg class="page-link__arrow page-link__arrow--right" aria-hidden="true"
-                                             width="8px" height="13px">
-                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-right-8x13"></use>
-                                        </svg>
-                                    </a></li>
-                                </ul>
-                            </div>
+{#                            <div class="products-view__pagination">#}
+{#                                <ul class="pagination justify-content-center">#}
+{#                                    <li class="page-item disabled"><a class="page-link page-link--with-arrow" href="#"#}
+{#                                                                      aria-label="Previous">#}
+{#                                        <svg class="page-link__arrow page-link__arrow--left" aria-hidden="true"#}
+{#                                             width="8px" height="13px">#}
+{#                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-left-8x13"></use>#}
+{#                                        </svg>#}
+{#                                    </a></li>#}
+{#                                    <li class="page-item"><a class="page-link" href="#">1</a></li>#}
+{#                                    <li class="page-item active"><a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>#}
+{#                                    </li>#}
+{#                                    <li class="page-item"><a class="page-link" href="#">3</a></li>#}
+{#                                    <li class="page-item"><a class="page-link page-link--with-arrow" href="#"#}
+{#                                                             aria-label="Next">#}
+{#                                        <svg class="page-link__arrow page-link__arrow--right" aria-hidden="true"#}
+{#                                             width="8px" height="13px">#}
+{#                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-right-8x13"></use>#}
+{#                                        </svg>#}
+{#                                    </a></li>#}
+{#                                </ul>#}
+{#                            </div>#}
                         </div>
                     </div>
                 </div>

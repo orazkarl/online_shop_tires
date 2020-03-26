@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 slug_help_text = "Слаг - это короткая метка для представления страницы в URL. \
@@ -36,7 +37,7 @@ class Product(models.Model):
     detailpageurl = models.TextField(blank=True, null=True)
     name = models.CharField('Название продукта', max_length=150, null=True)
     slug = models.SlugField(max_length=150, null=True, help_text=slug_help_text, db_index=True, unique=True)
-    description = models.TextField('Польное описание', blank=True, null=True)
+    description = RichTextField('Польное описание', blank=True, null=True)
     short = models.TextField('Короткое описание',blank=True, null=True)
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
     sale_price = models.DecimalField('Скидочная цена', max_digits=10, decimal_places=2, null=True, blank=True)
