@@ -45,8 +45,11 @@
                         <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Статьи</a>
                         </div>
                         <div class="topbar__spring"></div>
-                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Войти</a>
-                        </div>
+                        {% if user.is_authenticated %}
+                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">{{ user.username }}</a></div>
+                        {% else %}
+                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="{% url 'account_login' %}">Войти</a></div>
+                        {% endif %}
 {#                        <div class="topbar__item">#}
 {#                            <div class="topbar-dropdown">#}
 {#                                <button class="topbar-dropdown__btn" type="button">Мой Аккаунт#}

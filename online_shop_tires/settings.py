@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -25,8 +24,7 @@ SECRET_KEY = 'ho0&(nh+rdbf4&yn$!sz3w_e*x)087%lbe*iyvinc#!1n!_9ze'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -37,9 +35,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'shop.apps.ShopConfig',
+    'user_auth.apps.UserAuthConfig',
 
     'ckeditor',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -73,7 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'online_shop_tires.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -83,7 +85,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -103,20 +104,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Almaty'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -130,3 +129,32 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+
+SITE_ID = 1
+AUTH_USER_MODEL = 'user_auth.User'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400  # 1 day in seconds
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
+LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_FORMS = {
+    'login': 'user_auth.forms.CustomLoginForm',
+    'signup': 'user_auth.forms.CustomSignupForm',
+#     'add_email': 'allauth.account.forms.AddEmailForm',
+#     'change_password': 'user_auth.forms.CustomChangePasswordForm',
+#     'set_password': 'allauth.account.forms.SetPasswordForm',
+#     'reset_password': 'user_auth.forms.CustomResetPasswordForm',
+#     'reset_password_from_key': 'user_auth.forms.CustomResetPasswordKeyForm',
+#     'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+}
+
+ACCOUNT_ADAPTER = 'user_auth.adapter.AccountAdapter'
