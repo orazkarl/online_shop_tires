@@ -1,0 +1,39 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="card flex-grow-1 mb-md-3 m-3">
+            <div class="card-body">
+
+                <h1>{% trans "Confirm E-mail Address" %}</h1>
+
+                {% if confirmation %}
+
+                    {% user_display confirmation.email_address.user as user_display %}
+
+                    <p>{% blocktrans with confirmation.email_address.email as email %}Пожалуйста, подтвердите, что
+                        <a href="mailto:{{ email }}">{{ email }}</a>  является адресом электронной почты пользователя {{ user_display }}
+                        .{% endblocktrans %}</p>
+
+                    <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary mt-4">{% trans 'Confirm' %}</button>
+                    </form>
+
+                {% else %}
+
+                    {% url 'account_email' as email_url %}
+
+                    <p>{% blocktrans %}}Срок действия ссылки для подтверждения по электронной почте истек или недействителен. Пожалуйста, отправьте новый запрос подтверждения по электронной почте</a>.{% endblocktrans %}</p>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

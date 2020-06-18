@@ -1,0 +1,22 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="card flex-grow-1 mb-md-3 m-3">
+            <div class="card-body">
+
+                <h1>{% trans "Verify Your E-mail Address" %}</h1>
+
+                <p>Мы отправили вам электронное письмо для проверки. Перейдите по ссылке, чтобы завершить процесс
+                    регистрации. Пожалуйста, свяжитесь с нами, если вы не получили его в течение нескольких минут.
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

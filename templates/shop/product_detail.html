@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <div class="site"><!-- mobile site__header -->
+
 
     <div class="site__body">
         <div class="page-header">
@@ -223,14 +223,15 @@
                 <div class="product-tabs">
                     <div class="product-tabs__list"><a href="#tab-description"
                                                        class="product-tabs__item product-tabs__item--active">Описание</a>
-                        <a href="#tab-specification" class="product-tabs__item">Характеристика</a> <a href="#tab-reviews"
-                                                                                                     class="product-tabs__item">Отзывы</a>
+                        <a href="#tab-specification" class="product-tabs__item">Характеристика</a> <a
+                                href="#tab-reviews"
+                                class="product-tabs__item">Отзывы</a>
                     </div>
                     <div class="product-tabs__content">
                         <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
                             <div class="typography">
 
-                                    {{ object.description|safe }}
+                                {{ object.description|safe }}
 
                             </div>
                         </div>

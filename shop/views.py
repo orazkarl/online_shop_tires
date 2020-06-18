@@ -65,3 +65,6 @@ class CategoryDetailView(DetailView):
         context['products_in_category'] = Product.objects.filter(category=context['object'])
         context['categories'] = Category.objects.all()
         return context
+
+class WishlistView(TemplateView):
+    template_name =  'shop/wishlist.html'

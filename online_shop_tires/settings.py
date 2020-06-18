@@ -130,6 +130,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
+# Sendgrid
+SENDGRID_API_KEY  = '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'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'noreply@aryn.nopages.kz'
+
 SITE_ID = 1
 AUTH_USER_MODEL = 'user_auth.User'
 
@@ -137,7 +146,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"

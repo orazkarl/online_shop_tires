@@ -1,40 +1,179 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>{% block head_title %}{% endblock %}</title>
-    {% block extra_head %}
-    {% endblock %}
-  </head>
-  <body>
-    {% block body %}
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Авторизация</title>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}"><!-- fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i"><!-- css -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-4.2.1/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel-2.3.4/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"><!-- js -->
+    <script src="{% static 'vendor/jquery-3.3.1/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-4.2.1/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/owl-carousel-2.3.4/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'vendor/nouislider-12.1.0/nouislider.min.js' %}"></script>
+    <script src="{% static 'js/number.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'vendor/svg4everybody-2.1.9/svg4everybody.min.js' %}"></script>
+    <script>svg4everybody();</script><!-- font - fontawesome -->
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome-5.6.1/css/all.min.css' %}"><!-- font - stroyka -->
+    <link rel="stylesheet" href="{% static 'fonts/stroyka/stroyka.css' %}">
 
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
 
-    <div>
-      <strong>Menu:</strong>
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-        {% endif %}
-      </ul>
+</head>
+<body>
+<div id="quickview-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content"></div>
     </div>
+</div><!-- quickview-modal / end --><!-- mobilemenu -->
+
+
+<div class="site">
+    <header class="site__header d-lg-block d-none">
+        <div class="site-header"><!-- .topbar -->
+            <div class="site-header__topbar topbar">
+                <div class="topbar__container container">
+                    <div class="topbar__row">
+                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="{% url 'home' %}">Главная </a></div>
+                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Про нас </a></div>
+                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Контакты</a></div>
+                        {#                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Store Location</a></div>#}
+                        {#                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Track Order</a></div>#}
+                        <div class="topbar__item topbar__item--link"><a class="topbar-link" href="#">Статьи</a>
+                        </div>
+                        <div class="topbar__spring"></div>
+
+
+                    </div>
+                </div>
+            </div><!-- .topbar / end -->
+        </div>
+
+    </header><!-- desktop site__header / end --><!-- site__body -->
+
     {% block content %}
+
     {% endblock %}
-    {% endblock %}
-    {% block extra_body %}
-    {% endblock %}
-  </body>
+
+    <footer class="site__footer">
+        <div class="site-footer">
+            <div class="container">
+                <div class="site-footer__widgets">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="site-footer__widget footer-contacts"><h5 class="footer-contacts__title">
+                                Связаться с нами</h5>
+                                <div class="footer-contacts__text">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                    elit. Integer in feugiat lorem. Pellentque ac placerat tellus.
+                                </div>
+                                <ul class="footer-contacts__contacts">
+                                    <li><i class="footer-contacts__icon fas fa-globe-americas"></i> Адрес
+                                    </li>
+                                    <li><i class="footer-contacts__icon far fa-envelope"></i> pochta@gmail.com</li>
+                                    <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> +7 777 777 777
+                                    </li>
+                                    <li><i class="footer-contacts__icon far fa-clock"></i> Пон-Пят 09:00 - 18:00</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="site-footer__widget footer-links"><h5 class="footer-links__title">
+                                Информация</h5>
+                                <ul class="footer-links__list">
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Про нас</a>
+                                    </li>
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Информация о
+                                        доставке</a></li>
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Политика
+                                        Конфиденциальности</a></li>
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Brands</a>
+                                    </li>
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Контакты</a>
+                                    </li>
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Возврат</a>
+                                    </li>
+                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Site Map</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-4">
+                            <div class="site-footer__widget footer-newsletter"><h5 class="footer-newsletter__title">
+                                Социальные сети</h5>
+                            </div>
+                            <ul class="footer-newsletter__social-links">
+                                <li class="footer-newsletter__social-link footer-newsletter__social-link--facebook">
+                                    <a href="https://www.facebook.com/" target="_blank"><i
+                                            class="fab fa-facebook-f"></i></a></li>
+                                <li class="footer-newsletter__social-link footer-newsletter__social-link--twitter">
+                                    <a href="https://www.twitter.com/" target="_blank"><i
+                                            class="fab fa-twitter"></i></a></li>
+                                <li class="footer-newsletter__social-link footer-newsletter__social-link--youtube">
+                                    <a href="https://www.youtube.com/" target="_blank"><i
+                                            class="fab fa-youtube"></i></a></li>
+                                <li class="footer-newsletter__social-link footer-newsletter__social-link--instagram">
+                                    <a href="https://www.instagram.com/" target="_blank"><i
+                                            class="fab fa-instagram"></i></a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="site-footer__bottom">
+                <div style="margin-left: 18%" class="site-footer__copyright">Разработано <a target="_blank"
+                                                                                            href="http://desite.pro/">DESITE.PRO</a>
+                </div>
+            </div>
+        </div>
+
+    </footer><!-- site__footer / end --></div><!-- site / end --></body>
+</div>
+</body>
 </html>
+
+
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#  <head>#}
+{#    <title>{% block head_title %}{% endblock %}</title>#}
+{#    {% block extra_head %}#}
+{#    {% endblock %}#}
+{#  </head>#}
+{#  <body>#}
+{#    {% block body %}#}
+{##}
+{#    {% if messages %}#}
+{#    <div>#}
+{#      <strong>Messages:</strong>#}
+{#      <ul>#}
+{#        {% for message in messages %}#}
+{#        <li>{{message}}</li>#}
+{#        {% endfor %}#}
+{#      </ul>#}
+{#    </div>#}
+{#    {% endif %}#}
+{##}
+{#    <div>#}
+{#      <strong>Menu:</strong>#}
+{#      <ul>#}
+{#        {% if user.is_authenticated %}#}
+{#        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>#}
+{#        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>#}
+{#        {% else %}#}
+{#        <li><a href="{% url 'account_login' %}">Sign In</a></li>#}
+{#        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>#}
+{#        {% endif %}#}
+{#      </ul>#}
+{#    </div>#}
+{#    {% block content %}#}
+{#    {% endblock %}#}
+{#    {% endblock %}#}
+{#    {% block extra_body %}#}
+{#    {% endblock %}#}
+{#  </body>#}
+{#</html>#}
