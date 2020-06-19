@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.conf import settings
 
 # Create your models here.
 slug_help_text = "Слаг - это короткая метка для представления страницы в URL. \
@@ -48,6 +49,7 @@ class Product(models.Model):
     views = models.IntegerField('Просмотры', default=0, blank=True, null=True)
     manufacturer = models.CharField('Производитель',max_length=255, null=True)
 
+
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
@@ -65,3 +67,10 @@ class ProductImage(models.Model):
     class Meta:
         verbose_name = 'Фотография'
         verbose_name_plural = 'Фотографии'
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    wished_item = models.ForeignKey(Product, on_delete=models.CASCADE)
+    added_date = models.DateTimeField(auto_now_add=True)
+
+

@@ -1,8 +1,10 @@
 from django.urls import reverse_lazy
 from django.views.generic import *
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect
 
 
-from .models import Product, Category
+from .models import Product, Category, Wishlist
 
 
 
@@ -10,9 +12,11 @@ class IndexView(ListView):
     template_name = 'shop/index.html'
 
     def get_queryset(self):
+
         return Product.objects.order_by('-id')[:10]
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all()
         context.update({
@@ -30,6 +34,8 @@ class ProductListView(ListView):
             'categories': categories
         })
         return context
+# from django.views.generic.edit import FormMixin
+
 class ProductDetailView(DetailView):
     model = Product
 
@@ -66,5 +72,26 @@ class CategoryDetailView(DetailView):
         context['categories'] = Category.objects.all()
         return context
 
-class WishlistView(TemplateView):
+class WishlistView(ListView):
     template_name =  'shop/wishlist.html'
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = Wishlist.objects.filter(user_id=request.user.id)
+        return super().get(request, *args, **kwargs)
+
+
+
+
+
+def add_wishlist(request):
+    user = request.user
+    product_id = request.GET['product_id']
+    item = get_object_or_404(Product, id=product_id)
+
+    if not Wishlist.objects.filter(user_id=user.id, wished_item=item):
+        Wishlist.objects.create(user_id=user.id, wished_item=item)
+    wishlist_counter = Wishlist.objects.filter(user_id=request.user.id).count()
+    user.wishlist_counter = wishlist_counter
+    user.save()
+    # return HttpResponse('Товар добавлен')
+    return redirect('/wishlist')

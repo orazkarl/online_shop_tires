@@ -205,12 +205,25 @@
                                             <button class="btn btn-primary btn-lg">Добавить в корзину</button>
                                         </div>
                                         <div class="product__actions-item product__actions-item--wishlist">
-                                            <button type="button" class="btn btn-secondary btn-svg-icon btn-lg"
-                                                    data-toggle="tooltip" title="Избранное">
+                                            <a type="button" href="{% url 'add_wishlist' %}?product_id={{ object.id }}"
+                                               class="btn btn-secondary btn-svg-icon btn-lg ">
                                                 <svg width="16px" height="16px">
                                                     <use xlink:href="{% static 'images/sprite.svg' %}#wishlist-16"></use>
                                                 </svg>
-                                            </button>
+
+                                            </a>
+                                            {#                                            <form action="">#}
+
+                                            {#                                                <input type="text" name="product_id" value="{{ object.id }}" style="display:none;">#}
+                                            {#                                            <button type="submit" class="btn btn-secondary btn-svg-icon btn-lg"#}
+                                            {#                                                    data-toggle="tooltip" title="Избранное">#}
+                                            {#                                                <svg width="16px" height="16px">#}
+                                            {#                                                    <use xlink:href="{% static 'images/sprite.svg' %}#wishlist-16"></use>#}
+                                            {#                                                </svg>#}
+                                            {#                                            </button>#}
+                                            {#                                                <input type="submit" class="btn btn-secondary btn-svg-icon btn-lg0" name='submit' value="Избранное">#}
+                                            {#                                            </form>#}
+
                                         </div>
                                     </div>
                                 </div>

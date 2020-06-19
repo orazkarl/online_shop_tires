@@ -21,117 +21,134 @@
                     </tr>
                     </thead>
                     <tbody class="wishlist__body">
-                    <tr class="wishlist__row">
-                        <td class="wishlist__column wishlist__column--image">
-                            <div class="product-image"><a href="" class="product-image__body"><img
-                                    class="product-image__img" src="images/products/product-1.jpg" alt=""></a></div>
-                        </td>
-                        <td class="wishlist__column wishlist__column--product"><a href=""
-                                                                                  class="wishlist__product-name">Electric
-                            Planer Brandix KL370090G 300 Watts</a>
-                            <div class="wishlist__product-rating">
-                                <div class="rating">
-                                    <div class="rating__body">
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    {% for product in object_list %}
+                        <tr class="wishlist__row">
+                            <td class="wishlist__column wishlist__column--image">
+
+                                <div class="product-image">
+
+                                    <a href="{% url 'product_manager_product_detail' product.wished_item.slug %}" class="product-image__body">
+                                        <img class="product-image__img"
+                                             src="{{ product.wished_item.product_image.first.image.url }}" alt="">
+                                    </a>
                                 </div>
-                                <div class="wishlist__product-rating-legend">9 Reviews</div>
-                            </div>
-                        </td>
-                        <td class="wishlist__column wishlist__column--stock">
-                            <div class="badge badge-success">In Stock</div>
-                        </td>
-                        <td class="wishlist__column wishlist__column--price">$699.00</td>
-                        <td class="wishlist__column wishlist__column--tocart">
-                            <button type="button" class="btn btn-primary btn-sm">Add To Cart</button>
-                        </td>
-                        <td class="wishlist__column wishlist__column--remove">
-                            <button type="button" class="btn btn-light btn-sm btn-svg-icon">
-                                <svg width="12px" height="12px">
-                                    <use xlink:href="{% static 'images/sprite.svg' %}#cross-12"></use>
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="wishlist__column wishlist__column--product">
+                                <a href="{% url 'product_manager_product_detail' product.wished_item.slug %}" class="wishlist__product-name">{{ product.wished_item.name }}</a>
+                                {#                            <div class="wishlist__product-rating">#}
+                                {#                                <div class="rating">#}
+                                {#                                    <div class="rating__body">#}
+                                {#                                        <svg class="rating__star rating__star--active" width="13px" height="12px">#}
+                                {#                                            <g class="rating__fill">#}
+                                {#                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>#}
+                                {#                                            </g>#}
+                                {#                                            <g class="rating__stroke">#}
+                                {#                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>#}
+                                {#                                            </g>#}
+                                {#                                        </svg>#}
+                                {#                                        <div class="rating__star rating__star--only-edge rating__star--active">#}
+                                {#                                            <div class="rating__fill">#}
+                                {#                                                <div class="fake-svg-icon"></div>#}
+                                {#                                            </div>#}
+                                {#                                            <div class="rating__stroke">#}
+                                {#                                                <div class="fake-svg-icon"></div>#}
+                                {#                                            </div>#}
+                                {#                                        </div>#}
+                                {#                                        <svg class="rating__star rating__star--active" width="13px" height="12px">#}
+                                {#                                            <g class="rating__fill">#}
+                                {#                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>#}
+                                {#                                            </g>#}
+                                {#                                            <g class="rating__stroke">#}
+                                {#                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>#}
+                                {#                                            </g>#}
+                                {#                                        </svg>#}
+                                {#                                        <div class="rating__star rating__star--only-edge rating__star--active">#}
+                                {#                                            <div class="rating__fill">#}
+                                {#                                                <div class="fake-svg-icon"></div>#}
+                                {#                                            </div>#}
+                                {#                                            <div class="rating__stroke">#}
+                                {#                                                <div class="fake-svg-icon"></div>#}
+                                {#                                            </div>#}
+                                {#                                        </div>#}
+                                {#                                        <svg class="rating__star rating__star--active" width="13px" height="12px">#}
+                                {#                                            <g class="rating__fill">#}
+                                {#                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>#}
+                                {#                                            </g>#}
+                                {#                                            <g class="rating__stroke">#}
+                                {#                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>#}
+                                {#                                            </g>#}
+                                {#                                        </svg>#}
+                                {#                                        <div class="rating__star rating__star--only-edge rating__star--active">#}
+                                {#                                            <div class="rating__fill">#}
+                                {#                                                <div class="fake-svg-icon"></div>#}
+                                {#                                            </div>#}
+                                {#                                            <div class="rating__stroke">#}
+                                {#                                                <div class="fake-svg-icon"></div>#}
+                                {#                                            </div>#}
+                                {#                                        </div>#}
+                                {#                                        <svg class="rating__star rating__star--active" width="13px" height="12px">#}
+                                {#                                            <g class="rating__fill">#}
+                                {#                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>#}
+                                {#                                            </g>#}
+                                {#                                            <g class="rating__stroke">#}
+                                {#                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>#}
+                                {#                                            </g>#}
+                                {#                                        </svg>#}
+                                {#                                        <div class="rating__star rating__star--only-edge rating__star--active">#}
+                                {#                                            <div class="rating__fill">#}
+                                {#                                                <div class="fake-svg-icon"></div>#}
+                                {#                                            </div>#}
+                                {#                                            <div class="rating__stroke">#}
+                                {#                                                <div class="fake-svg-icon"></div>#}
+                                {#                                            </div>#}
+                                {#                                        </div>#}
+                                {#                                        <svg class="rating__star" width="13px" height="12px">#}
+                                {#                                            <g class="rating__fill">#}
+                                {#                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>#}
+                                {#                                            </g>#}
+                                {#                                            <g class="rating__stroke">#}
+                                {#                                                <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>#}
+                                {#                                            </g>#}
+                                {#                                        </svg>#}
+                                {#                                        <div class="rating__star rating__star--only-edge">#}
+                                {#                                            <div class="rating__fill">#}
+                                {#                                                <div class="fake-svg-icon"></div>#}
+                                {#                                            </div>#}
+                                {#                                            <div class="rating__stroke">#}
+                                {#                                                <div class="fake-svg-icon"></div>#}
+                                {#                                            </div>#}
+                                {#                                        </div>#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                {#                                <div class="wishlist__product-rating-legend">9 Reviews</div>#}
+                                {#                            </div>#}
+                            </td>
+                            <td class="wishlist__column wishlist__column--stock">
+                                {% if product.wished_item.available %}
+                                    <div class="badge badge-success">Есть</div>
+                                {% else %}
+                                    <div class="badge badge-danger">Нет</div>
+                                {% endif %}
+
+                            </td>
+                            <td class="wishlist__column wishlist__column--price">{{ product.wished_item.price }}₸</td>
+                            <td class="wishlist__column wishlist__column--tocart">
+                                {% if product.wished_item.available %}
+                                    <button type="button" class="btn btn-primary btn-sm">Добавить в корзину</button>
+                                {% else %}
+
+                                {% endif %}
+
+                            </td>
+                            <td class="wishlist__column wishlist__column--remove">
+                                <button type="button" class="btn btn-light btn-sm btn-svg-icon">
+                                    <svg width="12px" height="12px">
+                                        <use xlink:href="{% static 'images/sprite.svg' %}#cross-12"></use>
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
 
                     </tbody>
                 </table>

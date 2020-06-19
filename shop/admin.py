@@ -22,3 +22,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     inlines = [ProductImageInline]
 
+@admin.register(Wishlist)
+class WishlistAdmin(admin.ModelAdmin):
+    list_display = ['wished_item', 'user', 'added_date']
+

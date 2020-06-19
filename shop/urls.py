@@ -13,5 +13,8 @@ urlpatterns = (
     path('category/', views.CategoryListView.as_view(), name='product_manager_category_list'),
     path('category/detail/<slug:slug>/', views.CategoryDetailView.as_view(), name='product_manager_category_detail'),
 
-path('wishlist/', views.WishlistView.as_view(), name='wishlist'),
+    path('wishlist/', views.WishlistView.as_view(), name='wishlist'),
+
+    path('add_wishlist/', views.add_wishlist, name='add_wishlist'),
+
 )

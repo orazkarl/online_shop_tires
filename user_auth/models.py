@@ -8,4 +8,6 @@ class User(AbstractUser):
     phone_number = models.PositiveIntegerField('Телефон', validators=[MaxValueValidator(99999999999)], null=True)
     city = models.CharField('Город', max_length=100, null=True)
     address = models.CharField('Адрес', max_length=100, null=True)
+    wishlist_counter = models.PositiveIntegerField(default=0)
+    cart_counter = models.PositiveIntegerField(default=0)
 
