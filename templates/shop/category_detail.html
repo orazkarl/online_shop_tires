@@ -156,6 +156,8 @@
 {#                                                </div>#}
                                             </div>
 
+
+
                                             <div class="product-card__actions">
                                                 <div class="product-card__prices">{{ product_item.price }} ₸</div>
                                                 <div class="product-card__buttons">
@@ -164,13 +166,20 @@
                                                             <use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use>
                                                         </svg>
                                                     </button>
-                                                    <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
-                                                            type="button">
-                                                        <svg width="16px" height="16px">
-                                                            <use xlink:href="{% static 'images/sprite.svg' %}#wishlist-16"></use>
-                                                        </svg>
-                                                        <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
-                                                    </button>
+                                                          <a type="button" href="{% url 'add_wishlist' %}?product_id={{ product_item.id }}&url={{ request.path }}"
+                                               class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="{% static 'images/sprite.svg' %}#wishlist-16"></use>
+                                                </svg>
+
+                                            </a>
+{#                                                    <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"#}
+{#                                                            type="button">#}
+{#                                                        <svg width="16px" height="16px">#}
+{#                                                            <use xlink:href="{% static 'images/sprite.svg' %}#wishlist-16"></use>#}
+{#                                                        </svg>#}
+{#                                                        <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>#}
+{#                                                    </button>#}
                                                 </div>
                                             </div>
                                         </div>

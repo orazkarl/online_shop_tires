@@ -205,7 +205,7 @@
                                             <button class="btn btn-primary btn-lg">Добавить в корзину</button>
                                         </div>
                                         <div class="product__actions-item product__actions-item--wishlist">
-                                            <a type="button" href="{% url 'add_wishlist' %}?product_id={{ object.id }}"
+                                            <a type="button" href="{% url 'add_wishlist' %}?product_id={{ object.id }}&url={{ request.path }}"
                                                class="btn btn-secondary btn-svg-icon btn-lg ">
                                                 <svg width="16px" height="16px">
                                                     <use xlink:href="{% static 'images/sprite.svg' %}#wishlist-16"></use>

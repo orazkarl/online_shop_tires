@@ -88,10 +88,28 @@ def add_wishlist(request):
     product_id = request.GET['product_id']
     item = get_object_or_404(Product, id=product_id)
 
+
     if not Wishlist.objects.filter(user_id=user.id, wished_item=item):
         Wishlist.objects.create(user_id=user.id, wished_item=item)
     wishlist_counter = Wishlist.objects.filter(user_id=request.user.id).count()
     user.wishlist_counter = wishlist_counter
     user.save()
     # return HttpResponse('Товар добавлен')
+    url = 'wishlist'
+    if 'url' in request.GET:
+        url = request.GET['url']
+    return redirect(url)
+
+def del_wishlist(request):
+    user = request.user
+
+
+    product_id = request.GET['product_id']
+
+    item = get_object_or_404(Product, id=product_id)
+    if Wishlist.objects.filter(user_id=user.id, wished_item=item):
+        Wishlist.objects.filter(user_id=user.id, wished_item=item).delete()
+    wishlist_counter = Wishlist.objects.filter(user_id=request.user.id).count()
+    user.wishlist_counter = wishlist_counter
+    user.save()
     return redirect('/wishlist')
