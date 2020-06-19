@@ -131,10 +131,10 @@
                                     </a>
                                 </div>
                                 <div class="indicator indicator--trigger--click">
-                                    <a href="#" class="indicator__button">
+                                    <a href="{% url 'cart' %}" class="indicator__button">
                                         <span class="indicator__area"><svg width="20px" height="20px">
                                             <use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg>
-                                            <span class="indicator__value">3</span></span>
+                                            <span class="indicator__value">{{ user.cart_counter }}</span></span>
                                     </a>
                                     <div class="indicator__dropdown">
                                         <!-- .dropcart -->
@@ -197,7 +197,7 @@
                                             </div>
                                             <div class="dropcart__buttons"><a
                                                     class="btn btn-secondary"
-                                                    href="cart.html">View
+                                                    href="{% url 'cart' %}">View
                                                 Cart</a> <a
                                                     class="btn btn-primary"
                                                     href="checkout.html">Checkout</a>

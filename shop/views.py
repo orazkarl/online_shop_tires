@@ -81,8 +81,6 @@ class WishlistView(ListView):
 
 
 
-
-
 def add_wishlist(request):
     user = request.user
     product_id = request.GET['product_id']
@@ -113,3 +111,6 @@ def del_wishlist(request):
     user.wishlist_counter = wishlist_counter
     user.save()
     return redirect('/wishlist')
+
+class CartView(TemplateView):
+    template_name =  'shop/cart.html'
