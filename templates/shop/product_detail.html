@@ -37,10 +37,10 @@
                                 <div class="product-gallery__featured">
                                     <div class="owl-carousel" id="product-image">
                                         <a href="#"><img
-                                                src="{{ object.product_image.first.image.url }}" alt="">
+                                                src="{{ object.image.first.image.url }}" alt="">
                                         </a>
                                         <a href="#"><img
-                                                src="{{ object.product_image.last.image.url }}" alt="">
+                                                src="{{ object.image.last.image.url }}" alt="">
                                         </a>
 
 
@@ -202,7 +202,9 @@
                                             </div>
                                         </div>
                                         <div class="product__actions-item product__actions-item--addtocart">
-                                            <button class="btn btn-primary btn-lg">Добавить в корзину</button>
+{#                                            <button class="btn btn-primary btn-lg">Добавить в корзину</button>#}
+                                            <a href="{% url 'cart_add' object.id %}" class="btn btn-primary btn-lg">Добавить в корзину</a>
+
                                         </div>
                                         <div class="product__actions-item product__actions-item--wishlist">
                                             <a type="button" href="{% url 'add_wishlist' %}?product_id={{ object.id }}&url={{ request.path }}"

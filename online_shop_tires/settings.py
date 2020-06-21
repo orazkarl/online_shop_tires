@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -167,3 +169,5 @@ ACCOUNT_FORMS = {
 }
 
 ACCOUNT_ADAPTER = 'user_auth.adapter.AccountAdapter'
+
+CART_SESSION_ID = 'cart'

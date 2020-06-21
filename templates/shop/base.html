@@ -134,7 +134,7 @@
                                     <a href="{% url 'cart' %}" class="indicator__button">
                                         <span class="indicator__area"><svg width="20px" height="20px">
                                             <use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg>
-                                            <span class="indicator__value">{{ user.cart_counter }}</span></span>
+                                            <span class="indicator__value">{{ request.session.cart|length }}</span></span>
                                     </a>
                                     <div class="indicator__dropdown">
                                         <!-- .dropcart -->

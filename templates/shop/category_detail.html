@@ -60,7 +60,7 @@
 {#                                            <div class="product-card__badges-list">#}
 {#                                                <div class="product-card__badge product-card__badge--new">New</div>#}
 {#                                            </div>#}
-                                            <div class="product-card__image"><a href="{% url 'product_manager_product_detail' product_item.slug %}"><img src="{{ product_item.product_image.first.image.url }}" alt=""></a></div>
+                                            <div class="product-card__image"><a href="{% url 'product_manager_product_detail' product_item.slug %}"><img src="{{ product_item.image.first.image.url }}" alt=""></a></div>
                                             <div class="product-card__info">
                                                 <div class="product-card__name"><a href="{% url 'product_manager_product_detail' product_item.slug %}">{{ product_item.name }}</a></div>
 {#                                                <div class="product-card__rating">#}
