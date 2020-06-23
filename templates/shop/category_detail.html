@@ -161,11 +161,16 @@
                                             <div class="product-card__actions">
                                                 <div class="product-card__prices">{{ product_item.price }} ₸</div>
                                                 <div class="product-card__buttons">
-                                                    <button class="btn btn-primary product-card__addtocart"
-                                                            type="button"><svg width="16px" height="16px">
+                                                    <a href="{% url 'cart_add' product_item.id %}" class="btn btn-primary product-card__addtocart">
+                                                        <svg width="16px" height="16px">
                                                             <use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use>
                                                         </svg>
-                                                    </button>
+                                                    </a>
+{#                                                    <button class="btn btn-primary product-card__addtocart"#}
+{#                                                            type="button"><svg width="16px" height="16px">#}
+{#                                                            <use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use>#}
+{#                                                        </svg>#}
+{#                                                    </button>#}
                                                           <a type="button" href="{% url 'add_wishlist' %}?product_id={{ product_item.id }}&url={{ request.path }}"
                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist">
                                                 <svg width="16px" height="16px">

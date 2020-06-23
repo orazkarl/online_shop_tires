@@ -117,7 +117,7 @@ def del_wishlist(request):
 class CartView(TemplateView):
     template_name =  'shop/cart.html'
 
-@login_required(login_url="/users/login")
+@login_required(login_url="/accounts/login")
 def cart_add(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
@@ -125,7 +125,7 @@ def cart_add(request, id):
     return redirect('/category/detail/' + str(product.category.slug))
 
 
-@login_required(login_url="/users/login")
+@login_required(login_url="/accounts/login")
 def item_clear(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)

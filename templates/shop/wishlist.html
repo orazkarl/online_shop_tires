@@ -148,7 +148,8 @@
                             <td class="wishlist__column wishlist__column--price">{{ product.wished_item.price }}₸</td>
                             <td class="wishlist__column wishlist__column--tocart">
                                 {% if product.wished_item.available %}
-                                    <button type="button" class="btn btn-primary btn-sm">Добавить в корзину</button>
+                                    <a href="{% url 'cart_add' product.wished_item.id %}" class="btn btn-primary btn-sm">Добавить в корзину</a>
+
                                 {% else %}
 
                                 {% endif %}
