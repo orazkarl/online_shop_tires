@@ -47,7 +47,7 @@
                             <div class="products-view__list products-list" data-layout="grid-4-full"
                                  data-with-features="false">
                                 <div class="products-list__body">
-                                {% for product_item in products_in_category %}
+                                {% for product_item in object_list %}
 
 
                                     <div class="products-list__item">
@@ -60,9 +60,9 @@
 {#                                            <div class="product-card__badges-list">#}
 {#                                                <div class="product-card__badge product-card__badge--new">New</div>#}
 {#                                            </div>#}
-                                            <div class="product-card__image"><a href="{% url 'product_manager_product_detail' product_item.slug %}"><img src="{{ product_item.image.first.image.url }}" alt=""></a></div>
+                                            <div class="product-card__image"><a href="#"><img src="{{ product_item.image.first.image.url }}" alt=""></a></div>
                                             <div class="product-card__info">
-                                                <div class="product-card__name"><a href="{% url 'product_manager_product_detail' product_item.slug %}">{{ product_item.name }}</a></div>
+                                                <div class="product-card__name"><a href="#">{{ product_item.name }}</a></div>
 {#                                                <div class="product-card__rating">#}
 {#                                                    <div class="rating">#}
 {#                                                        <div class="rating__body">#}
@@ -161,23 +161,23 @@
                                             <div class="product-card__actions">
                                                 <div class="product-card__prices">{{ product_item.price }} ₸</div>
                                                 <div class="product-card__buttons">
-                                                    <a href="{% url 'cart_add' product_item.id %}" class="btn btn-primary product-card__addtocart">
-                                                        <svg width="16px" height="16px">
-                                                            <use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use>
-                                                        </svg>
-                                                    </a>
+{#                                                    <a href="{% url 'cart_add' product_item.id %}" class="btn btn-primary product-card__addtocart">#}
+{#                                                        <svg width="16px" height="16px">#}
+{#                                                            <use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use>#}
+{#                                                        </svg>#}
+{#                                                    </a>#}
 {#                                                    <button class="btn btn-primary product-card__addtocart"#}
 {#                                                            type="button"><svg width="16px" height="16px">#}
 {#                                                            <use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use>#}
 {#                                                        </svg>#}
 {#                                                    </button>#}
-                                                          <a type="button" href="{% url 'add_wishlist' %}?product_id={{ product_item.id }}&url={{ request.path }}"
-                                               class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist">
-                                                <svg width="16px" height="16px">
-                                                    <use xlink:href="{% static 'images/sprite.svg' %}#wishlist-16"></use>
-                                                </svg>
-
-                                            </a>
+{#                                                          <a type="button" href="{% url 'add_wishlist' %}?product_id={{ product_item.id }}&url={{ request.path }}"#}
+{#                                               class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist">#}
+{#                                                <svg width="16px" height="16px">#}
+{#                                                    <use xlink:href="{% static 'images/sprite.svg' %}#wishlist-16"></use>#}
+{#                                                </svg>#}
+{##}
+{#                                            </a>#}
 {#                                                    <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"#}
 {#                                                            type="button">#}
 {#                                                        <svg width="16px" height="16px">#}

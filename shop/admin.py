@@ -2,27 +2,38 @@ from django.contrib import admin
 from .models import *
 
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug', 'description', 'created', 'modified']
-    prepopulated_fields = {'slug': ('title',)}
+# @admin.register(Category)
+# class CategoryAdmin(admin.ModelAdmin):
+#     list_display = ['title', 'slug', 'description', 'created', 'modified']
+#     prepopulated_fields = {'slug': ('title',)}
 
 
-class ProductImageInline(admin.TabularInline):
-    model = ProductImage
-    raw_id_fields = ['product']
+class TireImageInline(admin.TabularInline):
+    model = TireImage
+    raw_id_fields = ['tire']
     extra = 1
 
 
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ['category', 'detailpageurl', 'name', 'slug', 'description', 'short', 'price', 'sale_price',
-                    'available', 'stock', 'created_at', 'updated_at', 'views', 'manufacturer']
+@admin.register(Tire)
+class TiretAdmin(admin.ModelAdmin):
+    list_display = ['name', 'short', 'price']
     prepopulated_fields = {'slug': ('name',)}
 
-    inlines = [ProductImageInline]
+    inlines = [TireImageInline]
 
-@admin.register(Wishlist)
-class WishlistAdmin(admin.ModelAdmin):
-    list_display = ['wished_item', 'user', 'added_date']
+class DiskImageInline(admin.TabularInline):
+    model = DiskImage
+    raw_id_fields = ['disk']
+    extra = 1
+
+
+@admin.register(Disk)
+class DiskAdmin(admin.ModelAdmin):
+    list_display = ['name',  'short', 'price']
+    prepopulated_fields = {'slug': ('name',)}
+
+    inlines = [DiskImageInline]
+# @admin.register(Wishlist)
+# class WishlistAdmin(admin.ModelAdmin):
+#     list_display = ['wished_item', 'user', 'added_date']
 
