@@ -5,9 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 
-
-from .models import Disk, Tire
-
+from .models import  Wishlist, Product
 
 
 class IndexView(TemplateView):
@@ -25,6 +23,33 @@ class IndexView(TemplateView):
     #     })
     #     return context
 
+
+class TireListView(ListView):
+    template_name = 'shop/category_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = Product.objects.filter(category=1)
+        context = super().get(request, *args, **kwargs)
+        return context
+
+
+class DiskListView(ListView):
+    template_name = 'shop/category_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = Product.objects.filter(category=2)
+        context = super().get(request, *args, **kwargs)
+        return context
+
+# class TireDetailView(DetailView):
+#     model = Tire
+#
+# class DiskDetailView(DetailView):
+#     model = Disk
+
+
+class ProductDetailView(DetailView):
+    model = Product
 # class ProductListView(ListView):
 #     model = Product
 #
@@ -37,17 +62,15 @@ class IndexView(TemplateView):
 #         return context
 # from django.views.generic.edit import FormMixin
 
-# class ProductDetailView(DetailView):
-#     model = Product
+
 #
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)
-        # categories = Category.objects.all()
-        # context.update({
-        #     'categories': categories
-        # })
-        # return context
-
+# categories = Category.objects.all()
+# context.update({
+#     'categories': categories
+# })
+# return context
 
 
 # class CategoryListView(ListView):
@@ -61,16 +84,17 @@ class IndexView(TemplateView):
 #         })
 #         return context
 
-class CategoryDetailView(ListView):
-    """ Allows you to view details of a category (will be used for inline product display). """
-    # model = Category
-    template_name = 'shop/category_detail.html'
-    def get(self, request, *args, **kwargs):
-        if 'disk' in request.path:
-            print('asd')
-            self.queryset = Disk.objects.all()
-        context = super().get( request, *args, **kwargs)
-        return context
+# class CategoryDetailView(ListView):
+#     """ Allows you to view details of a category (will be used for inline product display). """
+#     # model = Category
+#     template_name = 'shop/category_detail.html'
+#
+#     def get(self, request, *args, **kwargs):
+#         if 'disk' in request.path:
+#             print('asd')
+#             self.queryset = Disk.objects.all()
+#         context = super().get(request, *args, **kwargs)
+#         return context
     # def get_context_data(self, **kwargs):
     #     # Call the base implementation first to get a context
     #     context = super().get_context_data(**kwargs)
@@ -79,55 +103,56 @@ class CategoryDetailView(ListView):
     #     # context['categories'] = Category.objects.all()
     #     return context
 
-# class WishlistView(ListView):
-#     template_name =  'shop/wishlist.html'
-#
-#     def get(self, request, *args, **kwargs):
-#         self.queryset = Wishlist.objects.filter(user_id=request.user.id)
-#         return super().get(request, *args, **kwargs)
 
+class WishlistView(ListView):
+    template_name =  'shop/wishlist.html'
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = Wishlist.objects.filter(user_id=request.user.id)
+        return super().get(request, *args, **kwargs)
 
 
 def add_wishlist(request):
     user = request.user
     product_id = request.GET['product_id']
+
+    url = 'wishlist'
+
     item = get_object_or_404(Product, id=product_id)
-
-
-    if not Wishlist.objects.filter(user_id=user.id, wished_item=item):
-        Wishlist.objects.create(user_id=user.id, wished_item=item)
+    if not Wishlist.objects.filter(user_id=user.id,product_item=item):
+        Wishlist.objects.create(user_id=user.id, product_item=item)
     wishlist_counter = Wishlist.objects.filter(user_id=request.user.id).count()
     user.wishlist_counter = wishlist_counter
     user.save()
-    # return HttpResponse('Товар добавлен')
-    url = 'wishlist'
-    if 'url' in request.GET:
-        url = request.GET['url']
+
+
     return redirect(url)
+
 
 def del_wishlist(request):
     user = request.user
 
-
     product_id = request.GET['product_id']
 
     item = get_object_or_404(Product, id=product_id)
-    if Wishlist.objects.filter(user_id=user.id, wished_item=item):
-        Wishlist.objects.filter(user_id=user.id, wished_item=item).delete()
+    if Wishlist.objects.filter(user_id=user.id, product_item=item):
+        Wishlist.objects.filter(user_id=user.id, product_item=item).delete()
     wishlist_counter = Wishlist.objects.filter(user_id=request.user.id).count()
     user.wishlist_counter = wishlist_counter
     user.save()
     return redirect('/wishlist')
 
+
 class CartView(TemplateView):
-    template_name =  'shop/cart.html'
+    template_name = 'shop/cart.html'
+
 
 @login_required(login_url="/accounts/login")
 def cart_add(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.add(product=product)
-    return redirect('/category/detail/' + str(product.category.slug))
+    return redirect('cart_detail')
 
 
 @login_required(login_url="/accounts/login")
@@ -163,4 +188,10 @@ def cart_clear(request):
 
 @login_required(login_url="/users/login")
 def cart_detail(request):
-    return render(request, 'shop/cart.html')
+    cart = Cart(request)
+    l = []
+    for c in cart.cart.values():
+        l.append(float(c['price']) * int(c['quantity']))
+    total_price = sum(l)
+
+    return render(request, 'shop/cart.html', {'total': total_price})
