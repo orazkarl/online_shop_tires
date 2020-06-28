@@ -29,8 +29,11 @@ class TireListView(ListView):
 
     def get(self, request, *args, **kwargs):
         self.queryset = Product.objects.filter(category=1)
-        context = super().get(request, *args, **kwargs)
-        return context
+        self.extra_context = {
+            'count' : self.queryset.count(),
+        }
+
+        return super().get(request, *args, **kwargs)
 
 
 class DiskListView(ListView):
@@ -38,8 +41,11 @@ class DiskListView(ListView):
 
     def get(self, request, *args, **kwargs):
         self.queryset = Product.objects.filter(category=2)
-        context = super().get(request, *args, **kwargs)
-        return context
+        self.extra_context = {
+            'count': self.queryset.count(),
+        }
+
+        return super().get(request, *args, **kwargs)
 
 # class TireDetailView(DetailView):
 #     model = Tire
