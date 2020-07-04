@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 
-from .models import  Wishlist, Product
+from .models import Wishlist, Product, Height, Diameter, Width
 
 
 class IndexView(TemplateView):
@@ -28,9 +28,32 @@ class TireListView(ListView):
     template_name = 'shop/category_detail.html'
 
     def get(self, request, *args, **kwargs):
-        self.queryset = Product.objects.filter(category=1)
+        queryset = Product.objects.filter(category=1)
+
+        if request.GET:
+            season = request.GET['season']
+            height = request.GET['height']
+            width = request.GET['width']
+            diameter = request.GET['diameter']
+
+            if season != 'any':
+                print(queryset)
+                queryset = queryset.filter(season=season)
+            if height != 'any':
+                queryset = queryset.filter(height__height=float(height))
+                print(queryset)
+            if width != 'any':
+                queryset = queryset.filter(width__width=float(width))
+                print(queryset)
+            if diameter != 'any':
+                print(queryset)
+                queryset = queryset.filter(diameter__diameter=diameter)
+        self.queryset = queryset
         self.extra_context = {
-            'count' : self.queryset.count(),
+            'count': self.queryset.count(),
+            'heights': Height.objects.all(),
+            'widths': Width.objects.all(),
+            'diameters': Diameter.objects.all(),
         }
 
         return super().get(request, *args, **kwargs)
@@ -43,9 +66,11 @@ class DiskListView(ListView):
         self.queryset = Product.objects.filter(category=2)
         self.extra_context = {
             'count': self.queryset.count(),
+
         }
 
         return super().get(request, *args, **kwargs)
+
 
 # class TireDetailView(DetailView):
 #     model = Tire
@@ -56,6 +81,8 @@ class DiskListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
+
+
 # class ProductListView(ListView):
 #     model = Product
 #
@@ -101,17 +128,17 @@ class ProductDetailView(DetailView):
 #             self.queryset = Disk.objects.all()
 #         context = super().get(request, *args, **kwargs)
 #         return context
-    # def get_context_data(self, **kwargs):
-    #     # Call the base implementation first to get a context
-    #     context = super().get_context_data(**kwargs)
-    #     # Add in a QuerySet of the current category taken from above context.
-    #     context['products_in_category'] = Product.objects.filter(category=context['object'])
-    #     # context['categories'] = Category.objects.all()
-    #     return context
+# def get_context_data(self, **kwargs):
+#     # Call the base implementation first to get a context
+#     context = super().get_context_data(**kwargs)
+#     # Add in a QuerySet of the current category taken from above context.
+#     context['products_in_category'] = Product.objects.filter(category=context['object'])
+#     # context['categories'] = Category.objects.all()
+#     return context
 
 
 class WishlistView(ListView):
-    template_name =  'shop/wishlist.html'
+    template_name = 'shop/wishlist.html'
 
     def get(self, request, *args, **kwargs):
         self.queryset = Wishlist.objects.filter(user_id=request.user.id)
@@ -125,12 +152,11 @@ def add_wishlist(request):
     url = 'wishlist'
 
     item = get_object_or_404(Product, id=product_id)
-    if not Wishlist.objects.filter(user_id=user.id,product_item=item):
+    if not Wishlist.objects.filter(user_id=user.id, product_item=item):
         Wishlist.objects.create(user_id=user.id, product_item=item)
     wishlist_counter = Wishlist.objects.filter(user_id=request.user.id).count()
     user.wishlist_counter = wishlist_counter
     user.save()
-
 
     return redirect(url)
 

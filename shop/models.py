@@ -34,12 +34,28 @@ class Tag(models.Model):
 
 
 TYPES_OF_SEASON = [
-    ('В', 'Всесезонные'),
-    ('Л', 'Летние'),
-    ('З', 'Зимние'),
+    ('Всесезонные', 'Всесезонные'),
+    ('Летние', 'Летние'),
+    ('Зимние', 'Зимние'),
 ]
 
+class Height(models.Model):
+    height = models.FloatField('Высота', null=True, blank=True)
 
+    def __str__(self):
+        return str(self.height)
+
+class Width(models.Model):
+    width = models.FloatField('Ширина', null=True, blank=True)
+
+    def __str__(self):
+        return str(self.width)
+
+class Diameter(models.Model):
+    diameter = models.CharField('Диаметер', max_length=3, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.diameter)
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name='Категория')
     name = models.CharField('Название продукта', max_length=150, null=True)
@@ -56,10 +72,13 @@ class Product(models.Model):
     manufacturer = models.CharField('Производитель', max_length=255, null=True)
     # tire
     season = models.CharField('Сезонность', max_length=15, choices=TYPES_OF_SEASON, null=True, blank=True)
-    height = models.FloatField('Высота', null=True, blank=True)
+    # height = models.FloatField('Высота', null=True, blank=True)
+    height = models.ForeignKey(Height, on_delete=models.CASCADE, null=True, blank=True)
     # both
-    width = models.FloatField('Ширина', null=True, blank=True)
-    diameter = models.CharField('Диаметер', max_length=3, null=True, blank=True)
+    # width = models.FloatField('Ширина', null=True, blank=True)
+    # diameter = models.CharField('Диаметер', max_length=3, null=True, blank=True)
+    width = models.ForeignKey(Width, on_delete=models.CASCADE, null=True, blank=True)
+    diameter = models.ForeignKey(Diameter, on_delete=models.CASCADE, null=True, blank=True)
     # disk
     number_of_holes = models.FloatField('Число отверстий', null=True, blank=True)
     diameter_of_holes = models.FloatField('Диаметр отверстий', null=True, blank=True)

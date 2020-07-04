@@ -27,3 +27,6 @@ class ProductAdmin(admin.ModelAdmin):
 class WishlistAdmin(admin.ModelAdmin):
     list_display = [ 'user', 'added_date']
 
+admin.site.register(Height)
+admin.site.register(Width)
+admin.site.register(Diameter)
