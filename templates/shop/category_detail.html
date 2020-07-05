@@ -30,6 +30,13 @@
                                  data-collapse-opened-class="filter--opened"><h4 class="widget__title">Фильтр</h4>
                                 <form action="{% if request.path == '/tires/' %} {% url 'tires' %} {% elif request.path == '/disks/' %} {% url 'disks' %} {% endif %}"
                                       method="get" name="filter">
+                                    <label for="">Сортировать по</label>
+                                    <select class="form-control form-control-sm" name="sort" id="">
+                                        <option value="default" selected>умолчания</option>
+                                        <option value="increase">возрастанию цены</option>
+                                        <option value="decrease">убыванию цены</option>
+                                    </select>
+                                    <br>
                                     <div class="widget-filters__list">
                                         {% if request.path == '/tires/' %}
                                             <div class="widget-filters__item">
@@ -139,6 +146,138 @@
                                                 </div>
                                             </div>
                                         {% elif request.path == '/disks/' %}
+                                            <div class="widget-filters__item">
+                                                <div class="filter filter--opened" data-collapse-item>
+                                                    <button type="button" class="filter__title" data-collapse-trigger>
+                                                        Число отверстий
+                                                        <svg class="filter__arrow" width="12px" height="7px">
+                                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
+                                                        </svg>
+                                                    </button>
+                                                    <div class="filter__body" data-collapse-content>
+                                                        <div class="filter__container">
+                                                            <div class="filter-list">
+                                                                <div class="filter-list__list">
+                                                                    <label class="filter-list__item">
+                                                                    <span class="filter-list__input input-radio">
+                                                                        <span class="input-radio__body">
+                                                                            <input class="input-radio__input"
+                                                                                   name="number_of_holes" type="radio"
+                                                                                   value="any" checked>
+                                                                            <span class="input-radio__circle"></span>
+                                                                        </span>
+                                                                    </span>
+                                                                        <span class="filter-list__title">Любая </span>
+                                                                    </label>
+                                                                    {% for holes in number_of_holes %}
+
+                                                                        <label class="filter-list__item">
+                                                                    <span class="filter-list__input input-radio">
+                                                                        <span class="input-radio__body">
+                                                                            <input class="input-radio__input"
+                                                                                   name="number_of_holes" type="radio"
+                                                                                   value="{{ holes }}">
+                                                                            <span class="input-radio__circle"></span>
+                                                                        </span>
+                                                                    </span>
+                                                                            <span class="filter-list__title">{{ holes }} </span>
+                                                                        </label>
+                                                                    {% endfor %}
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-filters__item">
+                                                <div class="filter filter--opened" data-collapse-item>
+                                                    <button type="button" class="filter__title" data-collapse-trigger>
+                                                        Диаметр отверстий
+                                                        <svg class="filter__arrow" width="12px" height="7px">
+                                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
+                                                        </svg>
+                                                    </button>
+                                                    <div class="filter__body" data-collapse-content>
+                                                        <div class="filter__container">
+                                                            <div class="filter-list">
+                                                                <div class="filter-list__list">
+                                                                    <label class="filter-list__item">
+                                                                    <span class="filter-list__input input-radio">
+                                                                        <span class="input-radio__body">
+                                                                            <input class="input-radio__input"
+                                                                                   name="diameter_of_holes" type="radio"
+                                                                                   value="any" checked>
+                                                                            <span class="input-radio__circle"></span>
+                                                                        </span>
+                                                                    </span>
+                                                                        <span class="filter-list__title">Любая </span>
+                                                                    </label>
+                                                                    {% for diameter in diameter_of_holes %}
+
+                                                                        <label class="filter-list__item">
+                                                                    <span class="filter-list__input input-radio">
+                                                                        <span class="input-radio__body">
+                                                                            <input class="input-radio__input"
+                                                                                   name="diameter_of_holes" type="radio"
+                                                                                   value="{{ diameter }}">
+                                                                            <span class="input-radio__circle"></span>
+                                                                        </span>
+                                                                    </span>
+                                                                            <span class="filter-list__title">{{ diameter }} </span>
+                                                                        </label>
+                                                                    {% endfor %}
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-filters__item">
+                                                <div class="filter filter--opened" data-collapse-item>
+                                                    <button type="button" class="filter__title" data-collapse-trigger>
+                                                        Цвет
+                                                        <svg class="filter__arrow" width="12px" height="7px">
+                                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
+                                                        </svg>
+                                                    </button>
+                                                    <div class="filter__body" data-collapse-content>
+                                                        <div class="filter__container">
+                                                            <div class="filter-list">
+                                                                <div class="filter-list__list">
+                                                                    <label class="filter-list__item">
+                                                                    <span class="filter-list__input input-radio">
+                                                                        <span class="input-radio__body">
+                                                                            <input class="input-radio__input"
+                                                                                   name="color" type="radio"
+                                                                                   value="any" checked>
+                                                                            <span class="input-radio__circle"></span>
+                                                                        </span>
+                                                                    </span>
+                                                                        <span class="filter-list__title">Любая </span>
+                                                                    </label>
+                                                                    {% for color in colors %}
+
+                                                                        <label class="filter-list__item">
+                                                                    <span class="filter-list__input input-radio">
+                                                                        <span class="input-radio__body">
+                                                                            <input class="input-radio__input"
+                                                                                   name="color" type="radio"
+                                                                                   value="{{ color }}">
+                                                                            <span class="input-radio__circle"></span>
+                                                                        </span>
+                                                                    </span>
+                                                                            <span class="filter-list__title">{{ color }} </span>
+                                                                        </label>
+                                                                    {% endfor %}
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                         {% endif %}
                                         <div class="widget-filters__item">
@@ -231,8 +370,8 @@
                                         </div>
                                     </div>
                                     <div class="widget-filters__actions d-flex">
-                                        <button class="btn btn-primary btn-sm" type="submit">Filter</button>
-                                        <button class="btn btn-secondary btn-sm ml-2" type="reset">Reset</button>
+                                        <button class="btn btn-primary btn-sm" type="submit">Фильтр</button>
+                                        {#                                        <button class="btn btn-secondary btn-sm ml-2" type="reset">Reset</button>#}
                                     </div>
                                 </form>
                             </div>
@@ -250,15 +389,22 @@
 
                                             <div class="view-options__legend">Показано: {{ count }}  </div>
                                             <div class="view-options__divider"></div>
-                                            <div class="view-options__control"><label for="">Сортировать по</label>
-                                                <div>
-                                                    <select class="form-control form-control-sm" name="" id="">
-                                                        <option value="">умолчания</option>
-                                                        <option value="">возрастанию цены</option>
-                                                        <option value="">убыванию цены</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+{#                                            <div class="view-options__control"><label for="">Сортировать по</label>#}
+{#                                                <div>#}
+{#                                                    <form action="{% if request.path == '/tires/' %} {% url 'tires' %} {% elif request.path == '/disks/' %} {% url 'disks' %} {% endif %}"#}
+{#                                                          method="get">#}
+{#                                                        <select class="form-control form-control-sm" name="sort" id="">#}
+{#                                                            <option value="default" selected>умолчания</option>#}
+{#                                                            <option value="increase">возрастанию цены</option>#}
+{#                                                            <option value="</form>">убыванию цены</option>#}
+{#                                                        </select>#}
+{##}
+{#                                                        <button type="submit" class="btn btn-primary btn-sm"#}
+{#                                                                style="display: none">Сорт#}
+{#                                                        </button>#}
+{#                                                    </form>#}
+{#                                                </div>#}
+{#                                            </div>#}
                                         </div>
                                     </div>
                                     <div class="products-view__list products-list" data-layout="grid-4-full"

@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 
-from .models import Wishlist, Product, Height, Diameter, Width
+from .models import Wishlist, Product, Height, Diameter, Width, NumberOfHoles, DiameterOfHoles, Color
 
 
 class IndexView(TemplateView):
@@ -48,6 +48,12 @@ class TireListView(ListView):
             if diameter != 'any':
                 print(queryset)
                 queryset = queryset.filter(diameter__diameter=diameter)
+            sort = request.GET['sort']
+            if sort == 'increase':
+                queryset = queryset.order_by('price')
+            if sort == 'decrease':
+                queryset = queryset.order_by('-price')
+            print(sort)
         self.queryset = queryset
         self.extra_context = {
             'count': self.queryset.count(),
@@ -63,10 +69,31 @@ class DiskListView(ListView):
     template_name = 'shop/category_detail.html'
 
     def get(self, request, *args, **kwargs):
-        self.queryset = Product.objects.filter(category=2)
+        queryset = Product.objects.filter(category=2)
+        if request.GET:
+            color = request.GET['color']
+            diameter_of_holes = request.GET['diameter_of_holes']
+            number_of_holes = request.GET['number_of_holes']
+            width = request.GET['width']
+            diameter = request.GET['diameter']
+            if color != 'any':
+                queryset = queryset.filter(season=color)
+            if diameter_of_holes != 'any':
+                queryset = queryset.filter(height__height=float(diameter_of_holes))
+            if number_of_holes != 'any':
+                queryset = queryset.filter(height__height=float(number_of_holes))
+            if width != 'any':
+                queryset = queryset.filter(width__width=float(width))
+            if diameter != 'any':
+                queryset = queryset.filter(diameter__diameter=diameter)
+        self.queryset = queryset
         self.extra_context = {
             'count': self.queryset.count(),
-
+            'widths': Width.objects.all(),
+            'diameters': Diameter.objects.all(),
+            'number_of_holes': NumberOfHoles.objects.all(),
+            'diameter_of_holes': DiameterOfHoles.objects.all(),
+            'colors': Color.objects.all(),
         }
 
         return super().get(request, *args, **kwargs)

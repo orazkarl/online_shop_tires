@@ -56,6 +56,28 @@ class Diameter(models.Model):
 
     def __str__(self):
         return str(self.diameter)
+
+
+
+class NumberOfHoles(models.Model):
+    number_of_holes = models.FloatField('Число отверстий', null=True, blank=True)
+
+    def __str__(self):
+        return str(self.number_of_holes)
+
+
+class DiameterOfHoles(models.Model):
+    diameter_of_holes = models.FloatField('Диаметр отверстий', null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.diameter_of_holes)
+class Color(models.Model):
+    color = models.CharField('Цвет', max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.color)
+
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name='Категория')
     name = models.CharField('Название продукта', max_length=150, null=True)
@@ -73,16 +95,20 @@ class Product(models.Model):
     # tire
     season = models.CharField('Сезонность', max_length=15, choices=TYPES_OF_SEASON, null=True, blank=True)
     # height = models.FloatField('Высота', null=True, blank=True)
-    height = models.ForeignKey(Height, on_delete=models.CASCADE, null=True, blank=True)
+    height = models.ForeignKey(Height, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Высота')
     # both
     # width = models.FloatField('Ширина', null=True, blank=True)
     # diameter = models.CharField('Диаметер', max_length=3, null=True, blank=True)
-    width = models.ForeignKey(Width, on_delete=models.CASCADE, null=True, blank=True)
-    diameter = models.ForeignKey(Diameter, on_delete=models.CASCADE, null=True, blank=True)
+    width = models.ForeignKey(Width, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Ширина')
+    diameter = models.ForeignKey(Diameter, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Диаметр')
     # disk
-    number_of_holes = models.FloatField('Число отверстий', null=True, blank=True)
-    diameter_of_holes = models.FloatField('Диаметр отверстий', null=True, blank=True)
-    color = models.CharField('Цвет', max_length=100, null=True, blank=True)
+    # number_of_holes = models.FloatField('Число отверстий', null=True, blank=True)
+    # diameter_of_holes = models.FloatField('Диаметр отверстий', null=True, blank=True)
+    # color = models.CharField('Цвет', max_length=100, null=True, blank=True)
+    number_of_holes = models.ForeignKey(NumberOfHoles, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Число отверстий')
+    diameter_of_holes = models.ForeignKey(DiameterOfHoles, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Диаметр отверстий')
+    color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Цвет')
+
 
     class Meta:
         verbose_name = 'Продукт'
