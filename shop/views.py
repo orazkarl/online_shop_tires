@@ -29,7 +29,7 @@ class TireListView(ListView):
 
     def get(self, request, *args, **kwargs):
         queryset = Product.objects.filter(category=1)
-
+        season = 'any'
         if request.GET:
             season = request.GET['season']
             height = request.GET['height']
@@ -60,6 +60,7 @@ class TireListView(ListView):
             'heights': Height.objects.all(),
             'widths': Width.objects.all(),
             'diameters': Diameter.objects.all(),
+            'season': season,
         }
 
         return super().get(request, *args, **kwargs)
