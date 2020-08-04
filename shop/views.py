@@ -100,69 +100,53 @@ class DiskListView(ListView):
         return super().get(request, *args, **kwargs)
 
 
-# class TireDetailView(DetailView):
-#     model = Tire
-#
-# class DiskDetailView(DetailView):
-#     model = Disk
+class TruckTireListView(ListView):
+    template_name = 'shop/category_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        queryset = Product.objects.filter(category=3)
+        season = 'any'
+        if request.GET:
+            season = request.GET['season']
+            height = request.GET['height']
+            width = request.GET['width']
+            diameter = request.GET['diameter']
+
+            if season != 'any':
+                print(queryset)
+                queryset = queryset.filter(season=season)
+            if height != 'any':
+                queryset = queryset.filter(height__height=float(height))
+                print(queryset)
+            if width != 'any':
+                queryset = queryset.filter(width__width=float(width))
+                print(queryset)
+            if diameter != 'any':
+                print(queryset)
+                queryset = queryset.filter(diameter__diameter=diameter)
+            sort = request.GET['sort']
+            if sort == 'increase':
+                queryset = queryset.order_by('price')
+            if sort == 'decrease':
+                queryset = queryset.order_by('-price')
+            print(sort)
+        self.queryset = queryset
+        self.extra_context = {
+            'count': self.queryset.count(),
+            'heights': Height.objects.all(),
+            'widths': Width.objects.all(),
+            'diameters': Diameter.objects.all(),
+            'season': season,
+        }
+
+        return super().get(request, *args, **kwargs)
+
 
 
 class ProductDetailView(DetailView):
     model = Product
 
 
-# class ProductListView(ListView):
-#     model = Product
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         categories = Category.objects.all()
-#         context.update({
-#             'categories': categories
-#         })
-#         return context
-# from django.views.generic.edit import FormMixin
-
-
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-# categories = Category.objects.all()
-# context.update({
-#     'categories': categories
-# })
-# return context
-
-
-# class CategoryListView(ListView):
-#     model = Category
-#     pass
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         categories = Category.objects.all()
-#         context.update({
-#             'categories': categories
-#         })
-#         return context
-
-# class CategoryDetailView(ListView):
-#     """ Allows you to view details of a category (will be used for inline product display). """
-#     # model = Category
-#     template_name = 'shop/category_detail.html'
-#
-#     def get(self, request, *args, **kwargs):
-#         if 'disk' in request.path:
-#             print('asd')
-#             self.queryset = Disk.objects.all()
-#         context = super().get(request, *args, **kwargs)
-#         return context
-# def get_context_data(self, **kwargs):
-#     # Call the base implementation first to get a context
-#     context = super().get_context_data(**kwargs)
-#     # Add in a QuerySet of the current category taken from above context.
-#     context['products_in_category'] = Product.objects.filter(category=context['object'])
-#     # context['categories'] = Category.objects.all()
-#     return context
 
 
 class WishlistView(ListView):

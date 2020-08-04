@@ -133,7 +133,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # Sendgrid
-SENDGRID_API_KEY  = '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'
+SENDGRID_API_KEY = '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'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
@@ -160,12 +160,12 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_FORMS = {
     'login': 'user_auth.forms.CustomLoginForm',
     'signup': 'user_auth.forms.CustomSignupForm',
-#     'add_email': 'allauth.account.forms.AddEmailForm',
-#     'change_password': 'user_auth.forms.CustomChangePasswordForm',
-#     'set_password': 'allauth.account.forms.SetPasswordForm',
-#     'reset_password': 'user_auth.forms.CustomResetPasswordForm',
-#     'reset_password_from_key': 'user_auth.forms.CustomResetPasswordKeyForm',
-#     'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+    #     'add_email': 'allauth.account.forms.AddEmailForm',
+    #     'change_password': 'user_auth.forms.CustomChangePasswordForm',
+    #     'set_password': 'allauth.account.forms.SetPasswordForm',
+    #     'reset_password': 'user_auth.forms.CustomResetPasswordForm',
+    #     'reset_password_from_key': 'user_auth.forms.CustomResetPasswordKeyForm',
+    #     'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
 }
 
 ACCOUNT_ADAPTER = 'user_auth.adapter.AccountAdapter'
