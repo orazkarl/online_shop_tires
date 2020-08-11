@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 
-from .models import Wishlist, Product, Height, Diameter, Width, NumberOfHoles, DiameterOfHoles, Color
+from .models import Wishlist, Product, Height, Diameter, Width, NumberOfHoles, DiameterOfHoles, Color, Review
 
 
 class IndexView(TemplateView):
@@ -239,3 +239,13 @@ def cart_detail(request):
     total_price = sum(l)
 
     return render(request, 'shop/cart.html', {'total': total_price})
+
+@login_required(login_url="/users/login")
+def write_review(request):
+    product_id = request.POST['product']
+    rating = request.POST['rating']
+    comment = request.POST['comment']
+    product = Product.objects.get(id=product_id)
+
+    Review.objects.create(product_id=product_id, rating=rating, comment=comment, user=request.user)
+    return redirect('/product/' + str(product_id))

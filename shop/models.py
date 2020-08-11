@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.conf import settings
+import numpy as np
 
 # Create your models here.
 slug_help_text = "Слаг - это короткая метка для представления страницы в URL. \
@@ -118,8 +119,12 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-
-
+    def average_rating(self):
+        all_ratings = map(lambda x: x.rating, self.review_set.all())
+        avg_rating = np.mean(list(all_ratings))
+        if str(avg_rating) == 'nan':
+            return 0
+        return round(avg_rating)
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='image', on_delete=models.CASCADE)
     image_path = models.ImageField(upload_to='products/tires/%Y/%m/%d', blank=True, null=True)
@@ -149,3 +154,25 @@ class Wishlist(models.Model):
 
     product_item = models.ForeignKey(Product, on_delete=models.CASCADE)
     added_date = models.DateTimeField(auto_now_add=True)
+
+
+class Review(models.Model):
+    RATING_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    pub_date = models.DateTimeField(auto_now_add=True)
+    comment = models.CharField('Комментарий', max_length=250, null=True, blank=True)
+    rating = models.PositiveIntegerField('Рейтинг', choices=RATING_CHOICES)
+
+    def __str__(self):
+        return f"{self.user} - {self.product}"
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
