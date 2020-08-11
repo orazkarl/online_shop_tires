@@ -46,19 +46,27 @@ class Height(models.Model):
     def __str__(self):
         return str(self.height)
 
+    class Meta:
+        verbose_name = 'Высота'
+        verbose_name_plural = 'Высота'
 class Width(models.Model):
     width = models.FloatField('Ширина', null=True, blank=True)
 
     def __str__(self):
         return str(self.width)
 
+    class Meta:
+        verbose_name = 'Ширина'
+        verbose_name_plural = 'Ширина'
 class Diameter(models.Model):
     diameter = models.CharField('Диаметер', max_length=3, null=True, blank=True)
 
     def __str__(self):
         return str(self.diameter)
 
-
+    class Meta:
+        verbose_name = 'Диаметер'
+        verbose_name_plural = 'Диаметер'
 
 class NumberOfHoles(models.Model):
     number_of_holes = models.FloatField('Число отверстий', null=True, blank=True)
@@ -66,6 +74,9 @@ class NumberOfHoles(models.Model):
     def __str__(self):
         return str(self.number_of_holes)
 
+    class Meta:
+        verbose_name = 'Число отверстий'
+        verbose_name_plural = 'Число отверстий'
 
 class DiameterOfHoles(models.Model):
     diameter_of_holes = models.FloatField('Диаметр отверстий', null=True, blank=True)
@@ -73,12 +84,19 @@ class DiameterOfHoles(models.Model):
 
     def __str__(self):
         return str(self.diameter_of_holes)
+
+    class Meta:
+        verbose_name = 'Диаметер отверстий'
+        verbose_name_plural = 'Диаметер отверстий'
 class Color(models.Model):
     color = models.CharField('Цвет', max_length=100, null=True, blank=True)
 
     def __str__(self):
         return str(self.color)
 
+    class Meta:
+        verbose_name = 'Цвет'
+        verbose_name_plural = 'Цвет'
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name='Категория')
     name = models.CharField('Название продукта', max_length=150, null=True)
@@ -155,6 +173,9 @@ class Wishlist(models.Model):
     product_item = models.ForeignKey(Product, on_delete=models.CASCADE)
     added_date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = 'Избранное'
+        verbose_name_plural = 'Избранные'
 
 class Review(models.Model):
     RATING_CHOICES = (
