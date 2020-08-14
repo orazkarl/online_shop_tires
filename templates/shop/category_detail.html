@@ -32,8 +32,7 @@
                                 <form action="{% if request.path == '/tires/' %} {% url 'tires' %} {% elif request.path == '/disks/' %} {% url 'disks' %} {% endif %}"
                                       method="get" name="filter">
                                     <label for="">Сортировать по</label>
-                                    {#                                {{ request.get_full_path }}#}
-                                    {% if 'asd' in 's' %} 1111 {% endif %}
+
                                     <select class="form-control form-control-sm" name="sort" id="">
 
                                         <option value="default" {% if 'default' in request.get_full_path %}
@@ -47,503 +46,182 @@
                                         </option>
                                     </select>
                                     <br>
+
                                     <div class="widget-filters__list">
+                                        <div class="widget-filters__item">
+                                            <label for="width"> Ширина</label>
+                                            <select name="width" id="width"
+                                                    class="form-control form-control-sm">
+                                                <option value="any"
+                                                        {% if 'width=any' in request.get_full_path or requst.GET == None %}
+                                                        selected {% endif %}>Любая
+                                                </option>
+                                                {% for width in widths %}
+                                                    <option value="{{ width }}"
+                                                            {% if width|stringformat:"s" == request.GET.width %}
+                                                            selected {% endif %}>{{ width }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    <div class="widget-filters__item">
+                                            <label for="diameter"> Диаметер</label>
+                                            <select name="diameter" id="diameter"
+                                                    class="form-control form-control-sm">
+                                                <option value="any"
+                                                        {% if 'diameter=any' in request.get_full_path or requst.GET == None %}
+                                                        selected {% endif %}>Любая
+                                                </option>
+                                                {% for diameter in diameters %}
+                                                    <option value="{{ diameter }}"
+                                                            {% if diameter|stringformat:"s" == request.GET.diameter %}
+                                                            selected {% endif %}>{{ diameter }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                         {% if request.path == '/tires/' %}
                                             <div class="widget-filters__item">
-                                                <div class="filter filter--opened" data-collapse-item>
-                                                    <button type="button" class="filter__title" data-collapse-trigger>
-                                                        Сезонность
-                                                        <svg class="filter__arrow" width="12px" height="7px">
-                                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
-                                                        </svg>
-                                                    </button>
-                                                    <div class="filter__body" data-collapse-content>
-                                                        {#                                                    {% if requst.GET == None %}111{% endif %}#}
-                                                        <div class="filter__container">
-                                                            <div class="filter-list">
-                                                                <div class="filter-list__list">
-                                                                    <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="season" type="radio"
-                                                                                       value="any"
-                                                                                        {% if 'season=any' in request.get_full_path or requst.GET == None %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="filter-list__title">Любая </span>
-                                                                    </label>
-                                                                    {% if 'Всесезонные' in request.get_full_path %}
-                                                                        checked {% endif %}
-                                                                    <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="season" type="radio"
-                                                                                       value="Всесезонные"
-                                                                                        {% if 'Всесезонные' in season %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="filter-list__title">Всесезонные </span>
-                                                                    </label>
-                                                                    <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="season" type="radio"
-                                                                                       value="Зимние"
-                                                                                        {% if 'Зимние' in season %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="filter-list__title">Зимние </span>
-                                                                    </label>
-                                                                    <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="season" type="radio"
-                                                                                       value="Летние"
-                                                                                        {% if 'Летние' in season %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="filter-list__title">Летние </span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <label for="height"> Высота</label>
+                                                <select name="height" id="height"
+                                                        class="form-control form-control-sm">
+                                                    <option value="any"
+                                                            {% if 'height=any' in request.get_full_path or requst.GET == None %}
+                                                            selected {% endif %}>Любая
+                                                    </option>
+                                                    {% for height in heights %}
+                                                        <option value="{{ height }}"
+                                                                {% if height|stringformat:"s" == request.GET.height %}
+                                                                selected {% endif %}>{{ height }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
                                             <div class="widget-filters__item">
-                                                <div class="filter filter--opened" data-collapse-item>
-                                                    <button type="button" class="filter__title" data-collapse-trigger>
-                                                        Высота
-                                                        <svg class="filter__arrow" width="12px" height="7px">
-                                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
-                                                        </svg>
-                                                    </button>
-                                                    <div class="filter__body" data-collapse-content>
-                                                        <div class="filter__container">
-                                                            <div class="filter-list">
-                                                                <div class="filter-list__list">
-                                                                    <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="height" type="radio"
-                                                                                       value="any"
-                                                                                        {% if 'height=any' in request.get_full_path or requst.GET == None %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="filter-list__title">Любая </span>
-                                                                    </label>
+                                                <label for="season">Сезонность</label>
 
-                                                                    {% for height in heights %}
+                                                <select name="season" id="season"
+                                                        class="form-control form-control-sm">
+                                                    <option value="any"
+                                                            {% if 'season=any' in request.get_full_path or requst.GET == None %}
+                                                            selected {% endif %}>Любая
+                                                    </option>
 
-                                                                        <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="height" type="radio"
-                                                                                       value="{{ height }}"
-                                                                                        {% if height|stringformat:"s" == request.GET.height %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                            <span class="filter-list__title">{{ height }} </span>
-                                                                        </label>
-                                                                    {% endfor %}
+                                                    <option value="Всесезонные"
+                                                            {% if 'Всесезонные' in season %}
+                                                            selected {% endif %}>Всесезонные
+                                                    </option>
+                                                    <option value="Летние"
+                                                            {% if 'Летние' in season %}
+                                                            selected {% endif %}>Летние
+                                                    </option>
+                                                    <option value="Зимние"
+                                                            {% if 'Зимние' in season %}
+                                                            selected {% endif %}>Зимние
+                                                    </option>
+                                                </select>
 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
+
                                         {% elif request.path == '/disks/' %}
                                             <div class="widget-filters__item">
-                                                <div class="filter filter--opened" data-collapse-item>
-                                                    <button type="button" class="filter__title" data-collapse-trigger>
-                                                        Число отверстий
-                                                        <svg class="filter__arrow" width="12px" height="7px">
-                                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
-                                                        </svg>
-                                                    </button>
-                                                    <div class="filter__body" data-collapse-content>
-                                                        <div class="filter__container">
-                                                            <div class="filter-list">
-                                                                <div class="filter-list__list">
-                                                                    <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="number_of_holes"
-                                                                                       type="radio"
-                                                                                       value="any"
-                                                                                        {% if 'number_of_holes=any' in request.get_full_path or requst.GET == None %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="filter-list__title">Любая </span>
-                                                                    </label>
-                                                                    {% for holes in number_of_holes %}
-
-                                                                        <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="number_of_holes"
-                                                                                       type="radio"
-                                                                                       value="{{ holes }}"
-                                                                                        {% if holes|stringformat:"s" == request.GET.number_of_holes %}
-                                                                                       checked {% endif %}}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                            <span class="filter-list__title">{{ holes }} </span>
-                                                                        </label>
-                                                                    {% endfor %}
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <label for="number_of_holes"> Число отверстий</label>
+                                                <select name="number_of_holes" id="number_of_holes"
+                                                        class="form-control form-control-sm">
+                                                    <option value="any"
+                                                            {% if 'number_of_holes=any' in request.get_full_path or requst.GET == None %}
+                                                            selected {% endif %}>Любая
+                                                    </option>
+                                                    {% for holes in number_of_holes %}
+                                                        <option value="{{ holes }}"
+                                                                {% if holes|stringformat:"s" == request.GET.number_of_holes %}
+                                                                selected {% endif %}>{{ holes }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
                                             <div class="widget-filters__item">
-                                                <div class="filter filter--opened" data-collapse-item>
-                                                    <button type="button" class="filter__title" data-collapse-trigger>
-                                                        Диаметр отверстий
-                                                        <svg class="filter__arrow" width="12px" height="7px">
-                                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
-                                                        </svg>
-                                                    </button>
-                                                    <div class="filter__body" data-collapse-content>
-                                                        <div class="filter__container">
-                                                            <div class="filter-list">
-                                                                <div class="filter-list__list">
-                                                                    <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="diameter_of_holes"
-                                                                                       type="radio"
-                                                                                       value="any"
-                                                                                        {% if 'diameter_of_holes=any' in request.get_full_path or requst.GET == None %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="filter-list__title">Любая </span>
-                                                                    </label>
-                                                                    {% for diameter in diameter_of_holes %}
-
-                                                                        <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="diameter_of_holes"
-                                                                                       type="radio"
-                                                                                       value="{{ diameter }}"
-                                                                                        {% if diameter|stringformat:"s" == request.GET.diameter_of_holes %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                            <span class="filter-list__title">{{ diameter }} </span>
-                                                                        </label>
-                                                                    {% endfor %}
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <label for="diameter_of_holes"> Диаметер отверстий</label>
+                                                <select name="diameter_of_holes" id="diameter_of_holes"
+                                                        class="form-control form-control-sm">
+                                                    <option value="any"
+                                                            {% if 'diameter_of_holes=any' in request.get_full_path or requst.GET == None %}
+                                                            selected {% endif %}>Любая
+                                                    </option>
+                                                    {% for holes in diameter_of_holes %}
+                                                        <option value="{{ holes }}"
+                                                                {% if holes|stringformat:"s" == request.GET.diameter_of_holes %}
+                                                                selected {% endif %}>{{ holes }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
                                             <div class="widget-filters__item">
-                                                <div class="filter filter--opened" data-collapse-item>
-                                                    <button type="button" class="filter__title" data-collapse-trigger>
-                                                        Цвет
-                                                        <svg class="filter__arrow" width="12px" height="7px">
-                                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
-                                                        </svg>
-                                                    </button>
-                                                    <div class="filter__body" data-collapse-content>
-                                                        <div class="filter__container">
-                                                            <div class="filter-list">
-                                                                <div class="filter-list__list">
-                                                                    <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="color" type="radio"
-                                                                                       value="any"
-                                                                                        {% if 'color=any' in request.get_full_path %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="filter-list__title">Любая </span>
-                                                                    </label>
-                                                                    {% for color in colors %}
-
-                                                                        <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="color" type="radio"
-                                                                                       value="{{ color }}"
-                                                                                        {% if color|stringformat:"i" in request.get_full_path %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                            <span class="filter-list__title">{{ color }} </span>
-                                                                        </label>
-                                                                    {% endfor %}
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <label for="color"> Цвет</label>
+                                                <select name="color" id="color"
+                                                        class="form-control form-control-sm">
+                                                    <option value="any"
+                                                            {% if 'color=any' in request.get_full_path or requst.GET == None %}
+                                                            selected {% endif %}>Любая
+                                                    </option>
+                                                    {% for color in colors %}
+                                                        <option value="{{ color }}"
+                                                                {% if color|stringformat:"s" == request.GET.color %}
+                                                                selected {% endif %}>{{ color }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
                                         {% elif request.path == '/trucktires/' %}
+
                                             <div class="widget-filters__item">
-                                                <div class="filter filter--opened" data-collapse-item>
-                                                    <button type="button" class="filter__title" data-collapse-trigger>
-                                                        Сезонность
-                                                        <svg class="filter__arrow" width="12px" height="7px">
-                                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
-                                                        </svg>
-                                                    </button>
-                                                    <div class="filter__body" data-collapse-content>
-                                                        {#                                                    {% if requst.GET == None %}111{% endif %}#}
-                                                        <div class="filter__container">
-                                                            <div class="filter-list">
-                                                                <div class="filter-list__list">
-                                                                    <label class="filter-list__item">
-                                                                    <span class="filter-list__input input-radio">
-                                                                        <span class="input-radio__body">
-                                                                            <input class="input-radio__input"
-                                                                                   name="season" type="radio"
-                                                                                   value="any"
-                                                                                    {% if 'season=any' in request.get_full_path or requst.GET == None %}
-                                                                                   checked {% endif %}>
-                                                                            <span class="input-radio__circle"></span>
-                                                                        </span>
-                                                                    </span>
-                                                                        <span class="filter-list__title">Любая </span>
-                                                                    </label>
-                                                                    {% if 'Всесезонные' in request.get_full_path %}
-                                                                        checked {% endif %}
-                                                                    <label class="filter-list__item">
-                                                                    <span class="filter-list__input input-radio">
-                                                                        <span class="input-radio__body">
-                                                                            <input class="input-radio__input"
-                                                                                   name="season" type="radio"
-                                                                                   value="Всесезонные"
-                                                                                    {% if 'Всесезонные' in season %}
-                                                                                   checked {% endif %}>
-                                                                            <span class="input-radio__circle"></span>
-                                                                        </span>
-                                                                    </span>
-                                                                        <span class="filter-list__title">Всесезонные </span>
-                                                                    </label>
-                                                                    <label class="filter-list__item">
-                                                                    <span class="filter-list__input input-radio">
-                                                                        <span class="input-radio__body">
-                                                                            <input class="input-radio__input"
-                                                                                   name="season" type="radio"
-                                                                                   value="Зимние"
-                                                                                    {% if 'Зимние' in season %}
-                                                                                   checked {% endif %}>
-                                                                            <span class="input-radio__circle"></span>
-                                                                        </span>
-                                                                    </span>
-                                                                        <span class="filter-list__title">Зимние </span>
-                                                                    </label>
-                                                                    <label class="filter-list__item">
-                                                                    <span class="filter-list__input input-radio">
-                                                                        <span class="input-radio__body">
-                                                                            <input class="input-radio__input"
-                                                                                   name="season" type="radio"
-                                                                                   value="Летние"
-                                                                                    {% if 'Летние' in season %}
-                                                                                   checked {% endif %}>
-                                                                            <span class="input-radio__circle"></span>
-                                                                        </span>
-                                                                    </span>
-                                                                        <span class="filter-list__title">Летние </span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <label for="height"> Высота</label>
+                                                <select name="height" id="height"
+                                                        class="form-control form-control-sm">
+                                                    <option value="any"
+                                                            {% if 'height=any' in request.get_full_path or requst.GET == None %}
+                                                            selected {% endif %}>Любая
+                                                    </option>
+                                                    {% for height in heights %}
+                                                        <option value="{{ height }}"
+                                                                {% if height|stringformat:"s" == request.GET.height %}
+                                                                selected {% endif %}>{{ height }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
                                             <div class="widget-filters__item">
-                                                <div class="filter filter--opened" data-collapse-item>
-                                                    <button type="button" class="filter__title" data-collapse-trigger>
-                                                        Высота
-                                                        <svg class="filter__arrow" width="12px" height="7px">
-                                                            <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
-                                                        </svg>
-                                                    </button>
-                                                    <div class="filter__body" data-collapse-content>
-                                                        <div class="filter__container">
-                                                            <div class="filter-list">
-                                                                <div class="filter-list__list">
-                                                                    <label class="filter-list__item">
-                                                                    <span class="filter-list__input input-radio">
-                                                                        <span class="input-radio__body">
-                                                                            <input class="input-radio__input"
-                                                                                   name="height" type="radio"
-                                                                                   value="any"
-                                                                                    {% if 'height=any' in request.get_full_path or requst.GET == None %}
-                                                                                   checked {% endif %}>
-                                                                            <span class="input-radio__circle"></span>
-                                                                        </span>
-                                                                    </span>
-                                                                        <span class="filter-list__title">Любая </span>
-                                                                    </label>
+                                                <label for="season">Сезонность</label>
 
-                                                                    {% for height in heights %}
+                                                <select name="season" id="season"
+                                                        class="form-control form-control-sm">
+                                                    <option value="any"
+                                                            {% if 'season=any' in request.get_full_path or requst.GET == None %}
+                                                            selected {% endif %}>Любая
+                                                    </option>
 
-                                                                        <label class="filter-list__item">
-                                                                    <span class="filter-list__input input-radio">
-                                                                        <span class="input-radio__body">
-                                                                            <input class="input-radio__input"
-                                                                                   name="height" type="radio"
-                                                                                   value="{{ height }}"
-                                                                                    {% if height|stringformat:"s" == request.GET.height %}
-                                                                                   checked {% endif %}>
-                                                                            <span class="input-radio__circle"></span>
-                                                                        </span>
-                                                                    </span>
-                                                                            <span class="filter-list__title">{{ height }} </span>
-                                                                        </label>
-                                                                    {% endfor %}
+                                                    <option value="Всесезонные"
+                                                            {% if 'Всесезонные' in season %}
+                                                            selected {% endif %}>Всесезонные
+                                                    </option>
+                                                    <option value="Летние"
+                                                            {% if 'Летние' in season %}
+                                                            selected {% endif %}>Летние
+                                                    </option>
+                                                    <option value="Зимние"
+                                                            {% if 'Зимние' in season %}
+                                                            selected {% endif %}>Зимние
+                                                    </option>
+                                                </select>
 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         {% endif %}
-                                        <div class="widget-filters__item">
-                                            <div class="filter filter--opened" data-collapse-item>
-                                                <button type="button" class="filter__title" data-collapse-trigger>
-                                                    Ширина
-                                                    <svg class="filter__arrow" width="12px" height="7px">
-                                                        <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
-                                                    </svg>
-                                                </button>
-                                                <div class="filter__body" data-collapse-content>
-                                                    <div class="filter__container">
-                                                        <div class="filter-list">
-                                                            <div class="filter-list__list">
-                                                                <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="width" type="radio"
-                                                                                       value="any"
-                                                                                        {% if 'width=any' in request.get_full_path or requst.GET == None %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                    <span class="filter-list__title">Любая </span>
-                                                                </label>
-                                                                {% for width in widths %}
 
-                                                                    <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="width" type="radio"
-                                                                                       value="{{ width }}"
-                                                                                        {% if width|stringformat:"s" == request.GET.width %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="filter-list__title">{{ width }} </span>
-                                                                    </label>
-                                                                {% endfor %}
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="widget-filters__item">
-                                            <div class="filter filter--opened" data-collapse-item>
-                                                <button type="button" class="filter__title" data-collapse-trigger>
-                                                    Диаметер
-                                                    <svg class="filter__arrow" width="12px" height="7px">
-                                                        <use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-12x7"></use>
-                                                    </svg>
-                                                </button>
-                                                <div class="filter__body" data-collapse-content>
-                                                    <div class="filter__container">
-                                                        <div class="filter-list">
-                                                            <div class="filter-list__list">
-                                                                <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="diameter" type="radio"
-                                                                                       value="any"
-                                                                                        {% if 'any' == request.GET.diameter or requst.GET == None %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                    <span class="filter-list__title">Любая </span>
-                                                                </label>
-                                                                {% for diameter in diameters %}
-
-                                                                    <label class="filter-list__item">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="diameter" type="radio"
-                                                                                       value="{{ diameter }}"
-                                                                                        {% if diameter|stringformat:"s" == request.GET.diameter %}
-                                                                                       checked {% endif %}>
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="filter-list__title">{{ diameter }} </span>
-                                                                    </label>
-                                                                {% endfor %}
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="widget-filters__actions d-flex">
-                                        <button class="btn btn-primary btn-sm" type="submit">Фильтр</button>
-                                        {#                                        <button class="btn btn-secondary btn-sm ml-2" type="reset">Reset</button>#}
+                                        <button class="btn btn-primary btn-sm" type="submit" name="submit" value="filter">Фильтр</button>
+                                        <button class="btn btn-secondary btn-sm ml-2" type="submit" name="submit" value="reset">Сброс</button>
                                     </div>
                                 </form>
                             </div>
@@ -561,22 +239,6 @@
 
                                             <div class="view-options__legend">Показано: {{ count }}  </div>
                                             <div class="view-options__divider"></div>
-                                            {#                                            <div class="view-options__control"><label for="">Сортировать по</label>#}
-                                            {#                                                <div>#}
-                                            {#                                                    <form action="{% if request.path == '/tires/' %} {% url 'tires' %} {% elif request.path == '/disks/' %} {% url 'disks' %} {% endif %}"#}
-                                            {#                                                          method="get">#}
-                                            {#                                                        <select class="form-control form-control-sm" name="sort" id="">#}
-                                            {#                                                            <option value="default" selected>умолчания</option>#}
-                                            {#                                                            <option value="increase">возрастанию цены</option>#}
-                                            {#                                                            <option value="</form>">убыванию цены</option>#}
-                                            {#                                                        </select>#}
-                                            {##}
-                                            {#                                                        <button type="submit" class="btn btn-primary btn-sm"#}
-                                            {#                                                                style="display: none">Сорт#}
-                                            {#                                                        </button>#}
-                                            {#                                                    </form>#}
-                                            {#                                                </div>#}
-                                            {#                                            </div>#}
                                         </div>
                                     </div>
                                     <div class="products-view__list products-list" data-layout="grid-4-full"
@@ -597,97 +259,7 @@
                                                             <div class="product-card__name"><a
                                                                     href="{% url 'product_manager_product_detail' product_item.id %}">{{ product_item.name }}</a>
                                                             </div>
-                                                            {#                                                <div class="product-card__rating">#}
-                                                            {#                                                    <div class="rating">#}
-                                                            {#                                                        <div class="rating__body">#}
-                                                            {#                                                            <svg class="rating__star rating__star--active" width="13px"#}
-                                                            {#                                                                 height="12px">#}
-                                                            {#                                                                <g class="rating__fill">#}
-                                                            {#                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>#}
-                                                            {#                                                                </g>#}
-                                                            {#                                                                <g class="rating__stroke">#}
-                                                            {#                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>#}
-                                                            {#                                                                </g>#}
-                                                            {#                                                            </svg>#}
-                                                            {#                                                            <div class="rating__star rating__star--only-edge rating__star--active">#}
-                                                            {#                                                                <div class="rating__fill">#}
-                                                            {#                                                                    <div class="fake-svg-icon"></div>#}
-                                                            {#                                                                </div>#}
-                                                            {#                                                                <div class="rating__stroke">#}
-                                                            {#                                                                    <div class="fake-svg-icon"></div>#}
-                                                            {#                                                                </div>#}
-                                                            {#                                                            </div>#}
-                                                            {#                                                            <svg class="rating__star rating__star--active" width="13px"#}
-                                                            {#                                                                 height="12px">#}
-                                                            {#                                                                <g class="rating__fill">#}
-                                                            {#                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>#}
-                                                            {#                                                                </g>#}
-                                                            {#                                                                <g class="rating__stroke">#}
-                                                            {#                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>#}
-                                                            {#                                                                </g>#}
-                                                            {#                                                            </svg>#}
-                                                            {#                                                            <div class="rating__star rating__star--only-edge rating__star--active">#}
-                                                            {#                                                                <div class="rating__fill">#}
-                                                            {#                                                                    <div class="fake-svg-icon"></div>#}
-                                                            {#                                                                </div>#}
-                                                            {#                                                                <div class="rating__stroke">#}
-                                                            {#                                                                    <div class="fake-svg-icon"></div>#}
-                                                            {#                                                                </div>#}
-                                                            {#                                                            </div>#}
-                                                            {#                                                            <svg class="rating__star rating__star--active" width="13px"#}
-                                                            {#                                                                 height="12px">#}
-                                                            {#                                                                <g class="rating__fill">#}
-                                                            {#                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>#}
-                                                            {#                                                                </g>#}
-                                                            {#                                                                <g class="rating__stroke">#}
-                                                            {#                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>#}
-                                                            {#                                                                </g>#}
-                                                            {#                                                            </svg>#}
-                                                            {#                                                            <div class="rating__star rating__star--only-edge rating__star--active">#}
-                                                            {#                                                                <div class="rating__fill">#}
-                                                            {#                                                                    <div class="fake-svg-icon"></div>#}
-                                                            {#                                                                </div>#}
-                                                            {#                                                                <div class="rating__stroke">#}
-                                                            {#                                                                    <div class="fake-svg-icon"></div>#}
-                                                            {#                                                                </div>#}
-                                                            {#                                                            </div>#}
-                                                            {#                                                            <svg class="rating__star rating__star--active" width="13px"#}
-                                                            {#                                                                 height="12px">#}
-                                                            {#                                                                <g class="rating__fill">#}
-                                                            {#                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>#}
-                                                            {#                                                                </g>#}
-                                                            {#                                                                <g class="rating__stroke">#}
-                                                            {#                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>#}
-                                                            {#                                                                </g>#}
-                                                            {#                                                            </svg>#}
-                                                            {#                                                            <div class="rating__star rating__star--only-edge rating__star--active">#}
-                                                            {#                                                                <div class="rating__fill">#}
-                                                            {#                                                                    <div class="fake-svg-icon"></div>#}
-                                                            {#                                                                </div>#}
-                                                            {#                                                                <div class="rating__stroke">#}
-                                                            {#                                                                    <div class="fake-svg-icon"></div>#}
-                                                            {#                                                                </div>#}
-                                                            {#                                                            </div>#}
-                                                            {#                                                            <svg class="rating__star" width="13px" height="12px">#}
-                                                            {#                                                                <g class="rating__fill">#}
-                                                            {#                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#star-normal"></use>#}
-                                                            {#                                                                </g>#}
-                                                            {#                                                                <g class="rating__stroke">#}
-                                                            {#                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#star-normal-stroke"></use>#}
-                                                            {#                                                                </g>#}
-                                                            {#                                                            </svg>#}
-                                                            {#                                                            <div class="rating__star rating__star--only-edge">#}
-                                                            {#                                                                <div class="rating__fill">#}
-                                                            {#                                                                    <div class="fake-svg-icon"></div>#}
-                                                            {#                                                                </div>#}
-                                                            {#                                                                <div class="rating__stroke">#}
-                                                            {#                                                                    <div class="fake-svg-icon"></div>#}
-                                                            {#                                                                </div>#}
-                                                            {#                                                            </div>#}
-                                                            {#                                                        </div>#}
-                                                            {#                                                    </div>#}
-                                                            {#                                                    <div class="product-card__rating-legend">9 Reviews</div>#}
-                                                            {#                                                </div>#}
+
                                                         </div>
 
 

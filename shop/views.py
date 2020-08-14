@@ -11,18 +11,16 @@ from .models import Wishlist, Product, Height, Diameter, Width, NumberOfHoles, D
 class IndexView(TemplateView):
     template_name = 'shop/index.html'
 
-    # def get_queryset(self):
-    #     return Product.objects.order_by('-id')[:10]
-    #
-    # def get_context_data(self, **kwargs):
-    #
-    #     context = super().get_context_data(**kwargs)
-    #     categories = Category.objects.all()
-    #     context.update({
-    #         'categories': categories
-    #     })
-    #     return context
-
+    def get(self, request, *args, **kwargs):
+        tires = Product.objects.filter(category=1, available=True)[:10]
+        disks = Product.objects.filter(category=2, available=True)[:10]
+        trucktires = Product.objects.filter(category=3, available=True)[:10]
+        self.extra_context = {
+            'tires': tires,
+            'disks': disks,
+            'trucktires': trucktires,
+        }
+        return super().get(request, *args, **kwargs)
 
 class TireListView(ListView):
     template_name = 'shop/category_detail.html'
@@ -31,29 +29,30 @@ class TireListView(ListView):
         queryset = Product.objects.filter(category=1)
         season = 'any'
         if request.GET:
-            season = request.GET['season']
-            height = request.GET['height']
-            width = request.GET['width']
-            diameter = request.GET['diameter']
+            if request.GET['submit'] == 'filter':
+                season = request.GET['season']
+                height = request.GET['height']
+                width = request.GET['width']
+                diameter = request.GET['diameter']
 
-            if season != 'any':
-                print(queryset)
-                queryset = queryset.filter(season=season)
-            if height != 'any':
-                queryset = queryset.filter(height__height=float(height))
-                print(queryset)
-            if width != 'any':
-                queryset = queryset.filter(width__width=float(width))
-                print(queryset)
-            if diameter != 'any':
-                print(queryset)
-                queryset = queryset.filter(diameter__diameter=diameter)
-            sort = request.GET['sort']
-            if sort == 'increase':
-                queryset = queryset.order_by('price')
-            if sort == 'decrease':
-                queryset = queryset.order_by('-price')
-            print(sort)
+                if season != 'any':
+                    queryset = queryset.filter(season=season)
+                if height != 'any':
+                    queryset = queryset.filter(height__height=float(height))
+
+                if width != 'any':
+                    queryset = queryset.filter(width__width=float(width))
+
+                if diameter != 'any':
+                    queryset = queryset.filter(diameter__diameter=diameter)
+                sort = request.GET['sort']
+                if sort == 'increase':
+                    queryset = queryset.order_by('price')
+                if sort == 'decrease':
+                    queryset = queryset.order_by('-price')
+
+            elif request.GET['submit'] == 'reset':
+                return redirect('tires')
         self.queryset = queryset
         self.extra_context = {
             'count': self.queryset.count(),
@@ -72,21 +71,24 @@ class DiskListView(ListView):
     def get(self, request, *args, **kwargs):
         queryset = Product.objects.filter(category=2)
         if request.GET:
-            color = request.GET['color']
-            diameter_of_holes = request.GET['diameter_of_holes']
-            number_of_holes = request.GET['number_of_holes']
-            width = request.GET['width']
-            diameter = request.GET['diameter']
-            if color != 'any':
-                queryset = queryset.filter(season=color)
-            if diameter_of_holes != 'any':
-                queryset = queryset.filter(height__height=float(diameter_of_holes))
-            if number_of_holes != 'any':
-                queryset = queryset.filter(height__height=float(number_of_holes))
-            if width != 'any':
-                queryset = queryset.filter(width__width=float(width))
-            if diameter != 'any':
-                queryset = queryset.filter(diameter__diameter=diameter)
+            if request.GET['submit'] == 'filter':
+                color = request.GET['color']
+                diameter_of_holes = request.GET['diameter_of_holes']
+                number_of_holes = request.GET['number_of_holes']
+                width = request.GET['width']
+                diameter = request.GET['diameter']
+                if color != 'any':
+                    queryset = queryset.filter(season=color)
+                if diameter_of_holes != 'any':
+                    queryset = queryset.filter(height__height=float(diameter_of_holes))
+                if number_of_holes != 'any':
+                    queryset = queryset.filter(height__height=float(number_of_holes))
+                if width != 'any':
+                    queryset = queryset.filter(width__width=float(width))
+                if diameter != 'any':
+                    queryset = queryset.filter(diameter__diameter=diameter)
+            elif request.GET['submit'] == 'reset':
+                return redirect('disks')
         self.queryset = queryset
         self.extra_context = {
             'count': self.queryset.count(),
@@ -107,29 +109,29 @@ class TruckTireListView(ListView):
         queryset = Product.objects.filter(category=3)
         season = 'any'
         if request.GET:
-            season = request.GET['season']
-            height = request.GET['height']
-            width = request.GET['width']
-            diameter = request.GET['diameter']
+            if request.GET['submit'] == 'filter':
+                season = request.GET['season']
+                height = request.GET['height']
+                width = request.GET['width']
+                diameter = request.GET['diameter']
 
-            if season != 'any':
-                print(queryset)
-                queryset = queryset.filter(season=season)
-            if height != 'any':
-                queryset = queryset.filter(height__height=float(height))
-                print(queryset)
-            if width != 'any':
-                queryset = queryset.filter(width__width=float(width))
-                print(queryset)
-            if diameter != 'any':
-                print(queryset)
-                queryset = queryset.filter(diameter__diameter=diameter)
-            sort = request.GET['sort']
-            if sort == 'increase':
-                queryset = queryset.order_by('price')
-            if sort == 'decrease':
-                queryset = queryset.order_by('-price')
-            print(sort)
+                if season != 'any':
+                    queryset = queryset.filter(season=season)
+                if height != 'any':
+                    queryset = queryset.filter(height__height=float(height))
+
+                if width != 'any':
+                    queryset = queryset.filter(width__width=float(width))
+
+                if diameter != 'any':
+                    queryset = queryset.filter(diameter__diameter=diameter)
+                sort = request.GET['sort']
+                if sort == 'increase':
+                    queryset = queryset.order_by('price')
+                if sort == 'decrease':
+                    queryset = queryset.order_by('-price')
+            elif request.GET['submit'] == 'reset':
+                return redirect('trucktires')
         self.queryset = queryset
         self.extra_context = {
             'count': self.queryset.count(),
@@ -142,11 +144,8 @@ class TruckTireListView(ListView):
         return super().get(request, *args, **kwargs)
 
 
-
 class ProductDetailView(DetailView):
     model = Product
-
-
 
 
 class WishlistView(ListView):
@@ -239,6 +238,7 @@ def cart_detail(request):
     total_price = sum(l)
 
     return render(request, 'shop/cart.html', {'total': total_price})
+
 
 @login_required(login_url="/users/login")
 def write_review(request):

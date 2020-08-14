@@ -186,7 +186,7 @@ class Review(models.Model):
         (5, '5'),
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт', related_name='review')
     pub_date = models.DateTimeField(auto_now_add=True)
     comment = models.CharField('Комментарий', max_length=250, null=True, blank=True)
     rating = models.PositiveIntegerField('Рейтинг', choices=RATING_CHOICES)
