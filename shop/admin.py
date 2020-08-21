@@ -19,6 +19,7 @@ class ProductImageInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'short', 'price']
     # prepopulated_fields = {'slug': ('name',)}
+    filter_horizontal = ['city']
 
     inlines = [ProductImageInline]
 
@@ -35,6 +36,9 @@ admin.site.register(NumberOfHoles)
 admin.site.register(DiameterOfHoles)
 admin.site.register(Color)
 admin.site.register(Review)
+admin.site.register(City)
+
+
 
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import Group

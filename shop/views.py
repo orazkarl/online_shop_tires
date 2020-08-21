@@ -3,9 +3,11 @@ from django.views.generic import *
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 from cart.cart import Cart
 
-from .models import Wishlist, Product, Height, Diameter, Width, NumberOfHoles, DiameterOfHoles, Color, Review
+from .models import Wishlist, Product, Height, Diameter, Width, NumberOfHoles, DiameterOfHoles, Color, Review, Order, OrderItem
 
 
 class IndexView(TemplateView):
@@ -155,7 +157,7 @@ class WishlistView(ListView):
         self.queryset = Wishlist.objects.filter(user_id=request.user.id)
         return super().get(request, *args, **kwargs)
 
-
+@login_required(login_url="/users/login")
 def add_wishlist(request):
     user = request.user
     product_id = request.GET['product_id']
@@ -171,7 +173,7 @@ def add_wishlist(request):
 
     return redirect(url)
 
-
+@login_required(login_url="/users/login")
 def del_wishlist(request):
     user = request.user
 
@@ -249,3 +251,33 @@ def write_review(request):
 
     Review.objects.create(product_id=product_id, rating=rating, comment=comment, user=request.user)
     return redirect('/product/' + str(product_id))
+
+
+
+@login_required(login_url="/users/login")
+def checkout(request):
+    pass
+
+@method_decorator(login_required(login_url='/users/login/'), name='dispatch')
+class CheckoutView(TemplateView):
+    template_name = 'shop/checkout.html'
+
+    def get(self, request, *args, **kwargs):
+        cart = Cart(request)
+        l = []
+        for c in cart.cart.values():
+            l.append(float(c['price']) * int(c['quantity']))
+        total_price = sum(l)
+        print(total_price)
+        self.extra_context = {
+            'total': total_price,
+        }
+        # order = Order.objects.create()
+        for item in cart.cart.values():
+            OrderItem.objects.create()
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+
+        return super().get(request, *args, **kwargs)

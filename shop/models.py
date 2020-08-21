@@ -8,6 +8,17 @@ slug_help_text = "Слаг - это короткая метка для пред�
 Содержит только буквы, цифры, подчеркивания или дефисы."
 
 
+class City(models.Model):
+    name = models.CharField('Город', max_length=250)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Город'
+        verbose_name_plural = 'Города'
+
+
 class Category(models.Model):
     class Meta:
         verbose_name = 'Категория'
@@ -40,6 +51,7 @@ TYPES_OF_SEASON = [
     ('Зимние', 'Зимние'),
 ]
 
+
 class Height(models.Model):
     height = models.FloatField('Высота', null=True, blank=True)
 
@@ -49,6 +61,8 @@ class Height(models.Model):
     class Meta:
         verbose_name = 'Высота'
         verbose_name_plural = 'Высота'
+
+
 class Width(models.Model):
     width = models.FloatField('Ширина', null=True, blank=True)
 
@@ -58,6 +72,8 @@ class Width(models.Model):
     class Meta:
         verbose_name = 'Ширина'
         verbose_name_plural = 'Ширина'
+
+
 class Diameter(models.Model):
     diameter = models.CharField('Диаметер', max_length=3, null=True, blank=True)
 
@@ -67,6 +83,7 @@ class Diameter(models.Model):
     class Meta:
         verbose_name = 'Диаметер'
         verbose_name_plural = 'Диаметер'
+
 
 class NumberOfHoles(models.Model):
     number_of_holes = models.FloatField('Число отверстий', null=True, blank=True)
@@ -78,9 +95,9 @@ class NumberOfHoles(models.Model):
         verbose_name = 'Число отверстий'
         verbose_name_plural = 'Число отверстий'
 
+
 class DiameterOfHoles(models.Model):
     diameter_of_holes = models.FloatField('Диаметр отверстий', null=True, blank=True)
-
 
     def __str__(self):
         return str(self.diameter_of_holes)
@@ -88,6 +105,8 @@ class DiameterOfHoles(models.Model):
     class Meta:
         verbose_name = 'Диаметер отверстий'
         verbose_name_plural = 'Диаметер отверстий'
+
+
 class Color(models.Model):
     color = models.CharField('Цвет', max_length=100, null=True, blank=True)
 
@@ -97,6 +116,8 @@ class Color(models.Model):
     class Meta:
         verbose_name = 'Цвет'
         verbose_name_plural = 'Цвет'
+
+
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name='Категория')
     name = models.CharField('Название продукта', max_length=150, null=True)
@@ -111,6 +132,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField('Обновлен', auto_now=True)
     views = models.IntegerField('Просмотры', default=0, blank=True, null=True)
     manufacturer = models.CharField('Производитель', max_length=255, null=True)
+    city = models.ManyToManyField(City, related_name='product_city', null=True, blank=True)
     # tire
     season = models.CharField('Сезонность', max_length=15, choices=TYPES_OF_SEASON, null=True, blank=True)
     # height = models.FloatField('Высота', null=True, blank=True)
@@ -124,10 +146,11 @@ class Product(models.Model):
     # number_of_holes = models.FloatField('Число отверстий', null=True, blank=True)
     # diameter_of_holes = models.FloatField('Диаметр отверстий', null=True, blank=True)
     # color = models.CharField('Цвет', max_length=100, null=True, blank=True)
-    number_of_holes = models.ForeignKey(NumberOfHoles, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Число отверстий')
-    diameter_of_holes = models.ForeignKey(DiameterOfHoles, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Диаметр отверстий')
+    number_of_holes = models.ForeignKey(NumberOfHoles, on_delete=models.CASCADE, null=True, blank=True,
+                                        verbose_name='Число отверстий')
+    diameter_of_holes = models.ForeignKey(DiameterOfHoles, on_delete=models.CASCADE, null=True, blank=True,
+                                          verbose_name='Диаметр отверстий')
     color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Цвет')
-
 
     class Meta:
         verbose_name = 'Продукт'
@@ -143,6 +166,8 @@ class Product(models.Model):
         if str(avg_rating) == 'nan':
             return 0
         return round(avg_rating)
+
+
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='image', on_delete=models.CASCADE)
     image_path = models.ImageField(upload_to='products/tires/%Y/%m/%d', blank=True, null=True)
@@ -177,6 +202,7 @@ class Wishlist(models.Model):
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранные'
 
+
 class Review(models.Model):
     RATING_CHOICES = (
         (1, '1'),
@@ -197,3 +223,44 @@ class Review(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
+
+
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь')
+    created = models.DateTimeField('Создан', auto_now_add=True)
+    updated = models.DateTimeField('Обновлен', auto_now=True)
+    is_paid = models.BooleanField('Оплачен?', default=False)
+
+    PAYMENT_METHOD = [
+        ['Онлайн', 'Онлайн'],
+        ['Наличный', 'Наличный'],
+    ]
+    payment_method = models.CharField('Метод оплаты', max_length=250, choices=PAYMENT_METHOD)
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    def __str__(self):
+        return 'Заказ {}'.format(self.id)
+
+    def get_total_cost(self):
+        cost = sum(item.get_cost() for item in self.items.all())
+        return cost
+
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE, verbose_name='Заказ')
+    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE,verbose_name='Продукт')
+    price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField('Кол-во', default=1)
+
+    def __str__(self):
+        return '{}'.format(self.id)
+
+    def get_cost(self):
+        return self.price * self.quantity
+
+
+

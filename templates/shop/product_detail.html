@@ -118,13 +118,18 @@
                             </div>
                             <div class="product__description">{{ object.short }}</div>
                             <ul class="product__meta">
-                                <li class="product__meta-availability">Налличие:
+                                <li class="product__meta-availability">Наличие:
                                     {% if object.available %}
                                         <span class="text-success">Есть</span>
                                     {% else %}
                                         <span class="text-danger">Нет</span>
                                     {% endif %}
                                 </li>
+                            </ul>
+                            <ul class="product__meta">
+                                <span>Город(ы): </span>
+                                {% for city in object.city.all %}
+                                    <li class="">{{ city }}</li>{% endfor %}
 
                             </ul>
                         </div><!-- .product__info / end --><!-- .product__sidebar -->
@@ -317,12 +322,13 @@
                                     </div>
                                 </div>
                                 <form class="reviews-view__form" action="{% url 'write_review' %}" method="post">
-                                {% csrf_token %}
+                                    {% csrf_token %}
                                     {% if request.user.is_authenticated %}
                                         <h3 class="reviews-view__header">Написать отзыв</h3>
                                         <div class="row">
                                             <div class="col-12 col-lg-9 col-xl-8">
-                                                <input type="text" name="product" value="{{ product.id }}" style="display:none;">
+                                                <input type="text" name="product" value="{{ product.id }}"
+                                                       style="display:none;">
                                                 <div class="form-row">
                                                     <div class="form-group col-md-4"><label for="review-stars">Рейтинг
                                                     </label>
@@ -338,7 +344,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="review-text">Ваш отзыв</label>
-                                                    <textarea class="form-control" id="review-text" rows="6" name="comment"></textarea>
+                                                    <textarea class="form-control" id="review-text" rows="6"
+                                                              name="comment"></textarea>
                                                 </div>
                                                 <div class="form-group mb-0">
                                                     <button type="submit" class="btn btn-primary btn-lg">Написать отзыв
