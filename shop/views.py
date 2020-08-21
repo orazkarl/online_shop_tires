@@ -4,12 +4,14 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+import datetime
 from cart.cart import Cart
 
 from .models import Wishlist, Product, Height, Diameter, Width, NumberOfHoles, DiameterOfHoles, Color, Review, Order, OrderItem
+import requests
 
-
+token = '1381628865:AAESu6h386-wuLo5moCtFEZ_PYToXWsYUWs'
+channel_id = '-1001419255027'
 class IndexView(TemplateView):
     template_name = 'shop/index.html'
 
@@ -197,6 +199,7 @@ def cart_add(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.add(product=product)
+
     return redirect('cart_detail')
 
 
@@ -272,12 +275,56 @@ class CheckoutView(TemplateView):
         self.extra_context = {
             'total': total_price,
         }
-        # order = Order.objects.create()
-        for item in cart.cart.values():
-            OrderItem.objects.create()
+
+
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         print(request.POST)
+        cart = Cart(request)
+        fitst_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        city = request.POST['city']
+        address = request.POST['address']
 
-        return super().get(request, *args, **kwargs)
+        phone_number = request.POST['phone_number']
+        comment = request.POST['comment']
+        payment_method = request.POST['payment_method']
+
+        user = request.user
+        user.first_name = fitst_name
+        user.last_name = last_name
+        user.city = city
+        user.address = address
+        user.phone_number = phone_number
+        user.save()
+
+        order = Order.objects.create(user=user, payment_method=payment_method)
+
+        for item in cart.cart.values():
+            product = Product.objects.get(id=int(item['product_id']))
+            OrderItem.objects.create(order=order,  product=product, price=item['price'], quantity=item['quantity'])
+
+        message = '🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔\n'
+        message += 'Новый заказ!'
+        message += '\nИмя пользователя: ' + request.user.first_name + ' ' + request.user.last_name
+        message += '\nEmail: ' + str(request.user.email)
+        message += '\nТелефон: ' + str(request.user.phone_number)
+        message += '\nГород: ' + str(request.user.city)
+        message += '\nАдрес: ' + str(request.user.address)
+        message += '\nТовары: \n'
+        i = 1
+        total_price = 0
+        for order in order.items.all():
+            total_price += (float(order.product.price) * float(order.quantity))
+            message += str(i) + '. ' + order.product.name + ' ' + str(order.product.price) + 'x' + str(order.quantity) + '=' + str(float(order.product.price) * float(order.quantity)) + 'т\n'
+        message += '\nИтого: ' + str(total_price) +'т\n'
+        message += 'Метот оплаты: ' + payment_method +'\n'
+        message += 'Примечение: ' + comment + '\n'
+        message += 'Дата: ' + str(datetime.datetime.now().day) + '-' + str(datetime.datetime.now().month) +'-' + str(datetime.datetime.now().year) + '  '+ str(datetime.datetime.now().hour) + ':'+ str(datetime.datetime.now().minute)
+
+        requests.get("https://api.telegram.org/bot%s/sendMessage" % token,
+                     params={'chat_id': channel_id, 'text': message})
+        cart.clear()
+        return HttpResponse('Заказ принят')
+        # return super().get(request, *args, **kwargs)
