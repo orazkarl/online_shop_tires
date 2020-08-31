@@ -7521,7 +7521,9 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 @media (max-width: 991px) {
     .shop-layout {
         -ms-flex-wrap: wrap;
-        flex-wrap: wrap
+        flex-wrap: wrap;
+        display: block;
+
     }
 
     .shop-layout__content, .shop-layout__sidebar {
