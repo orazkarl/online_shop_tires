@@ -65,6 +65,22 @@
                                             </select>
                                         </div>
                                     <div class="widget-filters__item">
+                                                <label for="height"> Высота</label>
+                                                <select name="height" id="height"
+                                                        class="form-control form-control-sm">
+                                                    <option value="any"
+                                                            {% if 'height=any' in request.get_full_path or requst.GET == None %}
+                                                            selected {% endif %}>Любая
+                                                    </option>
+                                                    {% for height in heights %}
+                                                        <option value="{{ height }}"
+                                                                {% if height|stringformat:"s" == request.GET.height %}
+                                                                selected {% endif %}>{{ height }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        <div class="widget-filters__item">
                                             <label for="diameter"> Диаметер</label>
                                             <select name="diameter" id="diameter"
                                                     class="form-control form-control-sm">
@@ -80,23 +96,7 @@
                                                 {% endfor %}
                                             </select>
                                         </div>
-                                        {% if request.path == '/tires/' %}
-                                            <div class="widget-filters__item">
-                                                <label for="height"> Высота</label>
-                                                <select name="height" id="height"
-                                                        class="form-control form-control-sm">
-                                                    <option value="any"
-                                                            {% if 'height=any' in request.get_full_path or requst.GET == None %}
-                                                            selected {% endif %}>Любая
-                                                    </option>
-                                                    {% for height in heights %}
-                                                        <option value="{{ height }}"
-                                                                {% if height|stringformat:"s" == request.GET.height %}
-                                                                selected {% endif %}>{{ height }}
-                                                        </option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
+
                                             <div class="widget-filters__item">
                                                 <label for="season">Сезонность</label>
 
@@ -122,100 +122,102 @@
                                                 </select>
 
                                             </div>
+{#                                        {% if request.path == '/tires/' %}#}
 
-                                        {% elif request.path == '/disks/' %}
-                                            <div class="widget-filters__item">
-                                                <label for="number_of_holes"> Число отверстий</label>
-                                                <select name="number_of_holes" id="number_of_holes"
-                                                        class="form-control form-control-sm">
-                                                    <option value="any"
-                                                            {% if 'number_of_holes=any' in request.get_full_path or requst.GET == None %}
-                                                            selected {% endif %}>Любая
-                                                    </option>
-                                                    {% for holes in number_of_holes %}
-                                                        <option value="{{ holes }}"
-                                                                {% if holes|stringformat:"s" == request.GET.number_of_holes %}
-                                                                selected {% endif %}>{{ holes }}
-                                                        </option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="widget-filters__item">
-                                                <label for="diameter_of_holes"> Диаметер отверстий</label>
-                                                <select name="diameter_of_holes" id="diameter_of_holes"
-                                                        class="form-control form-control-sm">
-                                                    <option value="any"
-                                                            {% if 'diameter_of_holes=any' in request.get_full_path or requst.GET == None %}
-                                                            selected {% endif %}>Любая
-                                                    </option>
-                                                    {% for holes in diameter_of_holes %}
-                                                        <option value="{{ holes }}"
-                                                                {% if holes|stringformat:"s" == request.GET.diameter_of_holes %}
-                                                                selected {% endif %}>{{ holes }}
-                                                        </option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="widget-filters__item">
-                                                <label for="color"> Цвет</label>
-                                                <select name="color" id="color"
-                                                        class="form-control form-control-sm">
-                                                    <option value="any"
-                                                            {% if 'color=any' in request.get_full_path or requst.GET == None %}
-                                                            selected {% endif %}>Любая
-                                                    </option>
-                                                    {% for color in colors %}
-                                                        <option value="{{ color }}"
-                                                                {% if color|stringformat:"s" == request.GET.color %}
-                                                                selected {% endif %}>{{ color }}
-                                                        </option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        {% elif request.path == '/trucktires/' %}
 
-                                            <div class="widget-filters__item">
-                                                <label for="height"> Высота</label>
-                                                <select name="height" id="height"
-                                                        class="form-control form-control-sm">
-                                                    <option value="any"
-                                                            {% if 'height=any' in request.get_full_path or requst.GET == None %}
-                                                            selected {% endif %}>Любая
-                                                    </option>
-                                                    {% for height in heights %}
-                                                        <option value="{{ height }}"
-                                                                {% if height|stringformat:"s" == request.GET.height %}
-                                                                selected {% endif %}>{{ height }}
-                                                        </option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="widget-filters__item">
-                                                <label for="season">Сезонность</label>
+{#                                        {% elif request.path == '/disks/' %}#}
+{#                                            <div class="widget-filters__item">#}
+{#                                                <label for="number_of_holes"> Число отверстий</label>#}
+{#                                                <select name="number_of_holes" id="number_of_holes"#}
+{#                                                        class="form-control form-control-sm">#}
+{#                                                    <option value="any"#}
+{#                                                            {% if 'number_of_holes=any' in request.get_full_path or requst.GET == None %}#}
+{#                                                            selected {% endif %}>Любая#}
+{#                                                    </option>#}
+{#                                                    {% for holes in number_of_holes %}#}
+{#                                                        <option value="{{ holes }}"#}
+{#                                                                {% if holes|stringformat:"s" == request.GET.number_of_holes %}#}
+{#                                                                selected {% endif %}>{{ holes }}#}
+{#                                                        </option>#}
+{#                                                    {% endfor %}#}
+{#                                                </select>#}
+{#                                            </div>#}
+{#                                            <div class="widget-filters__item">#}
+{#                                                <label for="diameter_of_holes"> Диаметер отверстий</label>#}
+{#                                                <select name="diameter_of_holes" id="diameter_of_holes"#}
+{#                                                        class="form-control form-control-sm">#}
+{#                                                    <option value="any"#}
+{#                                                            {% if 'diameter_of_holes=any' in request.get_full_path or requst.GET == None %}#}
+{#                                                            selected {% endif %}>Любая#}
+{#                                                    </option>#}
+{#                                                    {% for holes in diameter_of_holes %}#}
+{#                                                        <option value="{{ holes }}"#}
+{#                                                                {% if holes|stringformat:"s" == request.GET.diameter_of_holes %}#}
+{#                                                                selected {% endif %}>{{ holes }}#}
+{#                                                        </option>#}
+{#                                                    {% endfor %}#}
+{#                                                </select>#}
+{#                                            </div>#}
+{#                                            <div class="widget-filters__item">#}
+{#                                                <label for="color"> Цвет</label>#}
+{#                                                <select name="color" id="color"#}
+{#                                                        class="form-control form-control-sm">#}
+{#                                                    <option value="any"#}
+{#                                                            {% if 'color=any' in request.get_full_path or requst.GET == None %}#}
+{#                                                            selected {% endif %}>Любая#}
+{#                                                    </option>#}
+{#                                                    {% for color in colors %}#}
+{#                                                        <option value="{{ color }}"#}
+{#                                                                {% if color|stringformat:"s" == request.GET.color %}#}
+{#                                                                selected {% endif %}>{{ color }}#}
+{#                                                        </option>#}
+{#                                                    {% endfor %}#}
+{#                                                </select>#}
+{#                                            </div>#}
+{#                                        {% elif request.path == '/trucktires/' %}#}
 
-                                                <select name="season" id="season"
-                                                        class="form-control form-control-sm">
-                                                    <option value="any"
-                                                            {% if 'season=any' in request.get_full_path or requst.GET == None %}
-                                                            selected {% endif %}>Любая
-                                                    </option>
-
-                                                    <option value="Всесезонные"
-                                                            {% if 'Всесезонные' in season %}
-                                                            selected {% endif %}>Всесезонные
-                                                    </option>
-                                                    <option value="Летние"
-                                                            {% if 'Летние' in season %}
-                                                            selected {% endif %}>Летние
-                                                    </option>
-                                                    <option value="Зимние"
-                                                            {% if 'Зимние' in season %}
-                                                            selected {% endif %}>Зимние
-                                                    </option>
-                                                </select>
-
-                                            </div>
-                                        {% endif %}
+{#                                            <div class="widget-filters__item">#}
+{#                                                <label for="height"> Высота</label>#}
+{#                                                <select name="height" id="height"#}
+{#                                                        class="form-control form-control-sm">#}
+{#                                                    <option value="any"#}
+{#                                                            {% if 'height=any' in request.get_full_path or requst.GET == None %}#}
+{#                                                            selected {% endif %}>Любая#}
+{#                                                    </option>#}
+{#                                                    {% for height in heights %}#}
+{#                                                        <option value="{{ height }}"#}
+{#                                                                {% if height|stringformat:"s" == request.GET.height %}#}
+{#                                                                selected {% endif %}>{{ height }}#}
+{#                                                        </option>#}
+{#                                                    {% endfor %}#}
+{#                                                </select>#}
+{#                                            </div>#}
+{#                                            <div class="widget-filters__item">#}
+{#                                                <label for="season">Сезонность</label>#}
+{##}
+{#                                                <select name="season" id="season"#}
+{#                                                        class="form-control form-control-sm">#}
+{#                                                    <option value="any"#}
+{#                                                            {% if 'season=any' in request.get_full_path or requst.GET == None %}#}
+{#                                                            selected {% endif %}>Любая#}
+{#                                                    </option>#}
+{##}
+{#                                                    <option value="Всесезонные"#}
+{#                                                            {% if 'Всесезонные' in season %}#}
+{#                                                            selected {% endif %}>Всесезонные#}
+{#                                                    </option>#}
+{#                                                    <option value="Летние"#}
+{#                                                            {% if 'Летние' in season %}#}
+{#                                                            selected {% endif %}>Летние#}
+{#                                                    </option>#}
+{#                                                    <option value="Зимние"#}
+{#                                                            {% if 'Зимние' in season %}#}
+{#                                                            selected {% endif %}>Зимние#}
+{#                                                    </option>#}
+{#                                                </select>#}
+{##}
+{#                                            </div>#}
+{#                                        {% endif %}#}
 
 
                                     </div>

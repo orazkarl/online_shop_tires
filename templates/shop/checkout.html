@@ -88,7 +88,7 @@
                                             <tbody class="checkout__totals-products">
                                             {% for key,value in request.session.cart.items %}
                                                 <tr>
-                                                    {{ value }}
+
                                                     <td>{{ value.name }} × {{ value.quantity }}</td>
                                                     <td>{{ value.price|multiply:value.quantity }}₸</td>
                                                 </tr>

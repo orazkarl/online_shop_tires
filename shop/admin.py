@@ -32,9 +32,9 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Height)
 admin.site.register(Width)
 admin.site.register(Diameter)
-admin.site.register(NumberOfHoles)
-admin.site.register(DiameterOfHoles)
-admin.site.register(Color)
+# admin.site.register(NumberOfHoles)
+# admin.site.register(DiameterOfHoles)
+# admin.site.register(Color)
 admin.site.register(Review)
 admin.site.register(City)
 
