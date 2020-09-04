@@ -305,26 +305,7 @@ class CheckoutView(TemplateView):
             product = Product.objects.get(id=int(item['product_id']))
             OrderItem.objects.create(order=order,  product=product, price=item['price'], quantity=item['quantity'])
 
-        message = '🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔\n'
-        message += 'Новый заказ!'
-        message += '\nИмя пользователя: ' + request.user.first_name + ' ' + request.user.last_name
-        message += '\nEmail: ' + str(request.user.email)
-        message += '\nТелефон: ' + str(request.user.phone_number)
-        message += '\nГород: ' + str(request.user.city)
-        message += '\nАдрес: ' + str(request.user.address)
-        message += '\nТовары: \n'
-        i = 1
-        total_price = 0
-        for order in order.items.all():
-            total_price += (float(order.product.price) * float(order.quantity))
-            message += str(i) + '. ' + order.product.name + ' ' + str(order.product.price) + 'x' + str(order.quantity) + '=' + str(float(order.product.price) * float(order.quantity)) + 'т\n'
-        message += '\nИтого: ' + str(total_price) +'т\n'
-        message += 'Метот оплаты: ' + payment_method +'\n'
-        message += 'Примечение: ' + comment + '\n'
-        message += 'Дата: ' + str(datetime.datetime.now().day) + '-' + str(datetime.datetime.now().month) +'-' + str(datetime.datetime.now().year) + '  '+ str(datetime.datetime.now().hour) + ':'+ str(datetime.datetime.now().minute)
 
-        requests.get("https://api.telegram.org/bot%s/sendMessage" % token,
-                     params={'chat_id': channel_id, 'text': message})
         cart.clear()
         return HttpResponse('Заказ принят')
         # return super().get(request, *args, **kwargs)

@@ -50,3 +50,38 @@ admin.site.unregister(SocialToken)
 admin.site.unregister(EmailAddress)
 admin.site.unregister(Group)
 admin.site.unregister(Site)
+
+
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    raw_id_fields = ['product']
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'created','payment_method', 'address', 'phone', 'is_paid', 'get_total_cost']
+
+    def address(selfs, obj):
+        return f"{obj.user.city}, {obj.user.address}"
+
+    def phone(selfs, obj):
+        return f"{obj.user.email}, {obj.user.phone_number}"
+
+
+    inlines = [OrderItemInline]
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+

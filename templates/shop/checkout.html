@@ -36,24 +36,24 @@
                                                 <label for="checkout-first-name">Имя</label>
                                                 <input type="text" class="form-control" id="checkout-first-name"
                                                        name="first_name"
-                                                       value="{{ request.user.first_name }}" placeholder="Имя"></div>
+                                                       value="{{ request.user.first_name }}" placeholder="Имя" required> </div>
                                             <div class="form-group col-md-6">
                                                 <label for="checkout-last-name">Фамилия</label>
                                                 <input type="text" class="form-control" id="checkout-last-name"
                                                        name="last_name"
-                                                       value="{{ request.user.last_name }}" placeholder="Фамилия">
+                                                       value="{{ request.user.last_name }}" placeholder="Фамилия" required>
                                             </div>
                                         </div>
                                         <div class="form-group"><label for="checkout-company-name">Город</label> <input
                                                 type="text"
                                                 class="form-control"
                                                 name="city"
-                                                placeholder="Город" value="{{ request.user.city }}">
+                                                placeholder="Город" value="{{ request.user.city }}" required>
                                         </div>
                                         <div class="form-group"><label for="checkout-street-address">Адрес, дом</label>
                                             <input type="text" class="form-control" id="checkout-street-address"
                                                    name="address"
-                                                   placeholder="Адрес, дом" value="{{ request.user.address }}"></div>
+                                                   placeholder="Адрес, дом" value="{{ request.user.address }}" required></div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6"><label for="checkout-email">Email</label>
                                                 <input type="email" class="form-control" id="checkout-email"
@@ -64,7 +64,7 @@
                                                 <input
                                                         type="text" class="form-control" id="checkout-phone"
                                                         placeholder="Телефон"
-                                                        name="phone_number" value="{{ request.user.phone_number }}">
+                                                        name="phone_number" value="{{ request.user.phone_number }}" required>
                                             </div>
                                             <div class="form-group col-md-12">
                                                 <label for="checkout-comment">Коментарии к заказу</label> <textarea
