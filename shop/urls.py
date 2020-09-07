@@ -29,4 +29,6 @@ urlpatterns = (
 
     path('write_review/', views.write_review, name='write_review'),
     path('checkout/', views.CheckoutView.as_view(), name='checkout'),
+
+    path('delivery/', views.InfoForDelivery.as_view(), name='delivery'),
 )

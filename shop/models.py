@@ -122,7 +122,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name='Категория')
     name = models.CharField('Название продукта', max_length=150, null=True)
     description = RichTextField('Польное описание', blank=True, null=True)
-    short = models.TextField('Короткое описание', blank=True, null=True)
+    short = RichTextField('Короткое описание', blank=True, null=True)
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
     available = models.BooleanField('Доступно', default=True)
     created_at = models.DateTimeField('Создан', auto_now_add=True)

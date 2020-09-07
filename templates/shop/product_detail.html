@@ -116,7 +116,7 @@
                                 </div>
 
                             </div>
-                            <div class="product__description">{{ object.short }}</div>
+                            <div class="product__description">{{ object.short|safe }}</div>
                             <ul class="product__meta">
                                 <li class="product__meta-availability">Наличие:
                                     {% if object.available %}
@@ -231,7 +231,8 @@
                                 <div class="reviews-view__list"><h3 class="reviews-view__header">Отзывы</h3>
                                     <div class="reviews-list">
                                         <ol class="reviews-list__content">
-                                            {% for review in product.review_set.all %}
+
+                                            {% for review in product.review.all %}
                                                 <li class="reviews-list__item">
                                                     <div class="review">
 

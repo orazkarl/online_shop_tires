@@ -309,3 +309,7 @@ class CheckoutView(TemplateView):
         cart.clear()
         return HttpResponse('Заказ принят')
         # return super().get(request, *args, **kwargs)
+
+
+class InfoForDelivery(TemplateView):
+    template_name = 'shop/delivery.html'

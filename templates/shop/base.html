@@ -93,10 +93,10 @@
                     <div class="mobile-links__item-title"><a href="{% url 'tires' %}" class="mobile-links__item-link">Шины</a>
                     </div>
                 </li>
-{#                <li class="mobile-links__item" data-collapse-item>#}
-{#                    <div class="mobile-links__item-title"><a href="{% url 'disks' %}" class="mobile-links__item-link">Диски</a>#}
-{#                    </div>#}
-{#                </li>#}
+                {#                <li class="mobile-links__item" data-collapse-item>#}
+                {#                    <div class="mobile-links__item-title"><a href="{% url 'disks' %}" class="mobile-links__item-link">Диски</a>#}
+                {#                    </div>#}
+                {#                </li>#}
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title"><a href="{% url 'trucktires' %}"
                                                              class="mobile-links__item-link">Грузовая шина</a>
@@ -229,14 +229,14 @@
                                     <li class="nav-links__item nav-links__item--with-submenu">
                                         <a href="{% url 'tires' %}"><span>Шины</span></a>
                                     </li>
-{#                                    <li class="nav-links__item nav-links__item--with-submenu">#}
-{#                                        <a href="{% url 'disks' %}"><span>Диски</span></a>#}
-{#                                    </li>#}
+                                    {#                                    <li class="nav-links__item nav-links__item--with-submenu">#}
+                                    {#                                        <a href="{% url 'disks' %}"><span>Диски</span></a>#}
+                                    {#                                    </li>#}
                                     <li class="nav-links__item nav-links__item--with-submenu">
                                         <a href="{% url 'trucktires' %}"><span>Грузовые шины</span></a>
                                     </li>
                                     <li class="nav-links__item nav-links__item--with-submenu">
-                                        <a href="{% url 'trucktires' %}"><span>Доставка</span></a>
+                                        <a href="{% url 'delivery' %}"><span>Информация о доставке</span></a>
                                     </li>
                                 </ul>
                             </div><!-- .nav-links / end -->
@@ -278,67 +278,67 @@
     {% block content %}
 
     {% endblock %}
-    <footer class="site__footer">
-        <div class="site-footer">
-            <div class="container">
-                <div class="site-footer__widgets">
-                    <div class="row">
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="site-footer__widget footer-contacts"><h5
-                                    class="footer-contacts__title">Связаться с
-                                нами</h5>
-                                <div class="footer-contacts__text">Lorem ipsum
-                                    dolor sit amet, consectetur adipiscing
-                                    elit. Integer in feugiat lorem. Pellentque
-                                    ac placerat tellus.
-                                </div>
-                                <ul class="footer-contacts__contacts">
-                                    <li>
-                                        <i class="footer-contacts__icon fas fa-globe-americas"></i>
-                                        Адрес
-                                    </li>
-                                    <li>
-                                        <i class="footer-contacts__icon far fa-envelope"></i>
-                                        pochta@gmail.com
-                                    </li>
-                                    <li>
-                                        <i class="footer-contacts__icon fas fa-mobile-alt"></i>
-                                        +7 777 777 777
-                                    </li>
-                                    <li>
-                                        <i class="footer-contacts__icon far fa-clock"></i>
-                                        Пон-Пят 09:00 - 18:00
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="site-footer__widget footer-links"><h5
-                                    class="footer-links__title">
-                                Информация</h5>
-                                <ul class="footer-links__list">
-                                    <li class="footer-links__item"><a href="#"
-                                                                      class="footer-links__link">Про
-                                        нас</a>
-                                    </li>
-                                    <li class="footer-links__item"><a href="#"
-                                                                      class="footer-links__link">Информация
-                                        о доставке</a></li>
-                                    <li class="footer-links__item"><a href="#"
-                                                                      class="footer-links__link">Политика
-                                        Конфиденциальности</a></li>
+{#    <footer class="site__footer">#}
+{#        <div class="site-footer">#}
+{#            <div class="container">#}
+{#                <div class="site-footer__widgets">#}
+{#                    <div class="row">#}
+{#                        <div class="col-12 col-md-6 col-lg-4">#}
+{#                            <div class="site-footer__widget footer-contacts"><h5#}
+{#                                    class="footer-contacts__title">Связаться с#}
+{#                                нами</h5>#}
+{#                                <div class="footer-contacts__text">Lorem ipsum#}
+{#                                    dolor sit amet, consectetur adipiscing#}
+{#                                    elit. Integer in feugiat lorem. Pellentque#}
+{#                                    ac placerat tellus.#}
+{#                                </div>#}
+{#                                <ul class="footer-contacts__contacts">#}
+{#                                    <li>#}
+{#                                        <i class="footer-contacts__icon fas fa-globe-americas"></i>#}
+{#                                        Адрес#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <i class="footer-contacts__icon far fa-envelope"></i>#}
+{#                                        pochta@gmail.com#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <i class="footer-contacts__icon fas fa-mobile-alt"></i>#}
+{#                                        +7 777 777 777#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <i class="footer-contacts__icon far fa-clock"></i>#}
+{#                                        Пон-Пят 09:00 - 18:00#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-12 col-md-6 col-lg-4">#}
+{#                            <div class="site-footer__widget footer-links"><h5#}
+{#                                    class="footer-links__title">#}
+{#                                Информация</h5>#}
+{#                                <ul class="footer-links__list">#}
+{#                                    <li class="footer-links__item"><a href="#"#}
+{#                                                                      class="footer-links__link">Про#}
+{#                                        нас</a>#}
+{#                                    </li>#}
+{#                                    <li class="footer-links__item"><a href="#"#}
+{#                                                                      class="footer-links__link">Информация#}
+{#                                        о доставке</a></li>#}
+{#                                    <li class="footer-links__item"><a href="#"#}
+{#                                                                      class="footer-links__link">Политика#}
+{#                                        Конфиденциальности</a></li>#}
                                     {#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Brands</a></li>#}
-                                    <li class="footer-links__item"><a href="#"
-                                                                      class="footer-links__link">Контакты</a>
-                                    </li>
-                                    <li class="footer-links__item"><a href="#"
-                                                                      class="footer-links__link">Возврат</a>
-                                    </li>
+{#                                    <li class="footer-links__item"><a href="#"#}
+{#                                                                      class="footer-links__link">Контакты</a>#}
+{#                                    </li>#}
+{#                                    <li class="footer-links__item"><a href="#"#}
+{#                                                                      class="footer-links__link">Возврат</a>#}
+{#                                    </li>#}
                                     {#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Site Map</a>#}
                                     {#                                    </li>#}
-                                </ul>
-                            </div>
-                        </div>
+{#                                </ul>#}
+{#                            </div>#}
+{#                        </div>#}
                         {#                        <div class="col-6 col-md-3 col-lg-2">#}
                         {#                            <div class="site-footer__widget footer-links"><h5 class="footer-links__title">My#}
                         {#                                Account</h5>#}
@@ -360,45 +360,45 @@
                         {#                                </ul>#}
                         {#                            </div>#}
                         {#                        </div>#}
-                        <div class="col-12 col-md-12 col-lg-4">
-                            <div class="site-footer__widget footer-newsletter">
-                                <h5 class="footer-newsletter__title">
-                                    Социальные сети</h5>
-
+{#                        <div class="col-12 col-md-12 col-lg-4">#}
+{#                            <div class="site-footer__widget footer-newsletter">#}
+{#                                <h5 class="footer-newsletter__title">#}
+{#                                    Социальные сети</h5>#}
+{##}
                                 {#                                <div class="footer-newsletter__text footer-newsletter__text--social">Follow us on social#}
                                 {#                                    networks#}
-                            </div>
-                            <ul class="footer-newsletter__social-links">
-                                <li class="footer-newsletter__social-link footer-newsletter__social-link--facebook">
-                                    <a href="https://www.facebook.com/"
-                                       target="_blank"><i
-                                            class="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li class="footer-newsletter__social-link footer-newsletter__social-link--twitter">
-                                    <a href="https://www.twitter.com/"
-                                       target="_blank"><i
-                                            class="fab fa-twitter"></i></a></li>
-                                <li class="footer-newsletter__social-link footer-newsletter__social-link--youtube">
-                                    <a href="https://www.youtube.com/"
-                                       target="_blank"><i
-                                            class="fab fa-youtube"></i></a></li>
-                                <li class="footer-newsletter__social-link footer-newsletter__social-link--instagram">
-                                    <a href="https://www.instagram.com/"
-                                       target="_blank"><i
-                                            class="fab fa-instagram"></i></a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{#                            </div>#}
+{#                            <ul class="footer-newsletter__social-links">#}
+{#                                <li class="footer-newsletter__social-link footer-newsletter__social-link--facebook">#}
+{#                                    <a href="https://www.facebook.com/"#}
+{#                                       target="_blank"><i#}
+{#                                            class="fab fa-facebook-f"></i></a>#}
+{#                                </li>#}
+{#                                <li class="footer-newsletter__social-link footer-newsletter__social-link--twitter">#}
+{#                                    <a href="https://www.twitter.com/"#}
+{#                                       target="_blank"><i#}
+{#                                            class="fab fa-twitter"></i></a></li>#}
+{#                                <li class="footer-newsletter__social-link footer-newsletter__social-link--youtube">#}
+{#                                    <a href="https://www.youtube.com/"#}
+{#                                       target="_blank"><i#}
+{#                                            class="fab fa-youtube"></i></a></li>#}
+{#                                <li class="footer-newsletter__social-link footer-newsletter__social-link--instagram">#}
+{#                                    <a href="https://www.instagram.com/"#}
+{#                                       target="_blank"><i#}
+{#                                            class="fab fa-instagram"></i></a>#}
+{#                                </li>#}
+{##}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
             {#                <div class="site-footer__bottom">#}
             {#                    <div style="margin-left: 18%" class="site-footer__copyright">Разработано <a target="_blank" href="http://desite.pro/">DESITE.PRO</a></div>#}
             {#                </div>#}
-        </div>
-</div>
-</footer><!-- site__footer / end -->
+{#        </div>#}
+{##}
+{#    </footer><!-- site__footer / end -->#}
 </div><!-- site / end --></body>
 </div>
 </body>
