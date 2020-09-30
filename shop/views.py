@@ -313,3 +313,9 @@ class CheckoutView(TemplateView):
 
 class InfoForDelivery(TemplateView):
     template_name = 'shop/delivery.html'
+
+class About(TemplateView):
+    template_name = 'shop/about.html'
+
+class Return(TemplateView):
+    template_name = 'shop/return.html'

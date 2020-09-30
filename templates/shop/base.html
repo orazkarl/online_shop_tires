@@ -28,7 +28,7 @@
           href="{% static 'vendor/fontawesome-5.6.1/css/all.min.css' %}">
     <!-- font - stroyka -->
     <link rel="stylesheet" href="{% static 'fonts/stroyka/stroyka.css' %}">
-<meta name="google-site-verification" content="U8c2ub5q91Tswo9AWbNHkqS220WKVArW54kGTrPUjhE" />
+    <meta name="google-site-verification" content="U8c2ub5q91Tswo9AWbNHkqS220WKVArW54kGTrPUjhE"/>
 
 
 </head>
@@ -92,6 +92,21 @@
                 {% endif %}
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title"><a href="{% url 'tires' %}" class="mobile-links__item-link">Шины</a>
+                    </div>
+                </li>
+                <li class="mobile-links__item" data-collapse-item>
+                    <div class="mobile-links__item-title"><a href="{% url 'delivery' %}"
+                                                             class="mobile-links__item-link">Информация о доставке</a>
+                    </div>
+                </li>
+                <li class="mobile-links__item" data-collapse-item>
+                    <div class="mobile-links__item-title"><a href="{% url 'about' %}" class="mobile-links__item-link">О
+                        нас</a>
+                    </div>
+                </li>
+            <li class="mobile-links__item" data-collapse-item>
+                    <div class="mobile-links__item-title"><a href="{% url 'return' %}"
+                                                             class="mobile-links__item-link">Возврат</a>
                     </div>
                 </li>
                 {#                <li class="mobile-links__item" data-collapse-item>#}
@@ -239,6 +254,12 @@
                                     <li class="nav-links__item nav-links__item--with-submenu">
                                         <a href="{% url 'delivery' %}"><span>Информация о доставке</span></a>
                                     </li>
+                                    <li class="nav-links__item nav-links__item--with-submenu">
+                                        <a href="{% url 'about' %}"><span>О нас</span></a>
+                                    </li>
+                                    <li class="nav-links__item nav-links__item--with-submenu">
+                                        <a href="{% url 'return' %}"><span>Возврат</span></a>
+                                    </li>
                                 </ul>
                             </div><!-- .nav-links / end -->
                             <div class="nav-panel__indicators">
@@ -279,127 +300,99 @@
     {% block content %}
 
     {% endblock %}
-{#    <footer class="site__footer">#}
-{#        <div class="site-footer">#}
-{#            <div class="container">#}
-{#                <div class="site-footer__widgets">#}
-{#                    <div class="row">#}
-{#                        <div class="col-12 col-md-6 col-lg-4">#}
-{#                            <div class="site-footer__widget footer-contacts"><h5#}
-{#                                    class="footer-contacts__title">Связаться с#}
-{#                                нами</h5>#}
-{#                                <div class="footer-contacts__text">Lorem ipsum#}
-{#                                    dolor sit amet, consectetur adipiscing#}
-{#                                    elit. Integer in feugiat lorem. Pellentque#}
-{#                                    ac placerat tellus.#}
+    <footer class="site__footer">
+        <div class="site-footer">
+            <div class="container">
+                <div class="site-footer__widgets">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="site-footer__widget footer-contacts"><h5
+                                    class="footer-contacts__title">Связаться с
+                                нами</h5>
+{#                                <div class="footer-contacts__text">Kaz Tyre#}
 {#                                </div>#}
-{#                                <ul class="footer-contacts__contacts">#}
-{#                                    <li>#}
-{#                                        <i class="footer-contacts__icon fas fa-globe-americas"></i>#}
-{#                                        Адрес#}
-{#                                    </li>#}
-{#                                    <li>#}
-{#                                        <i class="footer-contacts__icon far fa-envelope"></i>#}
-{#                                        pochta@gmail.com#}
-{#                                    </li>#}
-{#                                    <li>#}
-{#                                        <i class="footer-contacts__icon fas fa-mobile-alt"></i>#}
-{#                                        +7 777 777 777#}
-{#                                    </li>#}
-{#                                    <li>#}
-{#                                        <i class="footer-contacts__icon far fa-clock"></i>#}
-{#                                        Пон-Пят 09:00 - 18:00#}
-{#                                    </li>#}
-{#                                </ul>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="col-12 col-md-6 col-lg-4">#}
-{#                            <div class="site-footer__widget footer-links"><h5#}
-{#                                    class="footer-links__title">#}
-{#                                Информация</h5>#}
-{#                                <ul class="footer-links__list">#}
-{#                                    <li class="footer-links__item"><a href="#"#}
-{#                                                                      class="footer-links__link">Про#}
-{#                                        нас</a>#}
-{#                                    </li>#}
-{#                                    <li class="footer-links__item"><a href="#"#}
-{#                                                                      class="footer-links__link">Информация#}
-{#                                        о доставке</a></li>#}
-{#                                    <li class="footer-links__item"><a href="#"#}
-{#                                                                      class="footer-links__link">Политика#}
-{#                                        Конфиденциальности</a></li>#}
-                                    {#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Brands</a></li>#}
-{#                                    <li class="footer-links__item"><a href="#"#}
-{#                                                                      class="footer-links__link">Контакты</a>#}
-{#                                    </li>#}
-{#                                    <li class="footer-links__item"><a href="#"#}
-{#                                                                      class="footer-links__link">Возврат</a>#}
-{#                                    </li>#}
-                                    {#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Site Map</a>#}
-                                    {#                                    </li>#}
-{#                                </ul>#}
-{#                            </div>#}
-{#                        </div>#}
-                        {#                        <div class="col-6 col-md-3 col-lg-2">#}
-                        {#                            <div class="site-footer__widget footer-links"><h5 class="footer-links__title">My#}
-                        {#                                Account</h5>#}
-                        {#                                <ul class="footer-links__list">#}
-                        {#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Store#}
-                        {#                                        Location</a></li>#}
-                        {#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Order#}
-                        {#                                        History</a></li>#}
-                        {#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Wish List</a>#}
-                        {#                                    </li>#}
-                        {#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Newsletter</a>#}
-                        {#                                    </li>#}
-                        {#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Specials</a>#}
-                        {#                                    </li>#}
-                        {#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Gift#}
-                        {#                                        Certificates</a></li>#}
-                        {#                                    <li class="footer-links__item"><a href="#" class="footer-links__link">Affiliate</a>#}
-                        {#                                    </li>#}
-                        {#                                </ul>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
+                                <ul class="footer-contacts__contacts">
+                                    <li>
+                                        <i class="footer-contacts__icon fas fa-globe-americas"></i>
+                                        Адрес: Жамбылская область,Байзакский район,с.Косак,ул М.Маметова 20
+
+                                    </li>
+                                    <li>
+                                        <i class="footer-contacts__icon far fa-envelope"></i>
+                                        pochta@gmail.com
+                                    </li>
+                                    <li>
+                                        <i class="footer-contacts__icon fas fa-mobile-alt"></i>
+                                        +7 707 622 05 86
+                                    </li>
+                                    <li>
+                                        <i class="footer-contacts__icon far fa-clock"></i>
+                                        Пон-Пят 09:00 - 18:00
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="site-footer__widget footer-links"><h5
+                                    class="footer-links__title">
+                                Важные ссылки</h5>
+                                <ul class="footer-links__list">
+                                    <li class="footer-links__item"><a href="{% url 'about' %}"
+                                                                      class="footer-links__link">О нас</a>
+                                    </li>
+                                    <li class="footer-links__item"><a href="{% url 'delivery' %}"
+                                                                      class="footer-links__link">Информация
+                                        о доставке</a></li>
+                                    <li class="footer-links__item"><a href="/media/soglashenie.docx"
+                                                                      class="footer-links__link">Пользовательское соглашение</a></li>
+                                    <li class="footer-links__item"><a href="{% url 'return' %}"
+                                                                      class="footer-links__link">Гарантия и возврат</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
 {#                        <div class="col-12 col-md-12 col-lg-4">#}
 {#                            <div class="site-footer__widget footer-newsletter">#}
 {#                                <h5 class="footer-newsletter__title">#}
 {#                                    Социальные сети</h5>#}
 {##}
-                                {#                                <div class="footer-newsletter__text footer-newsletter__text--social">Follow us on social#}
-                                {#                                    networks#}
+{#                                <div class="footer-newsletter__text footer-newsletter__text--social">Follow us on social#}
+{#                                    networks#}
+{#                                </div>#}
+{#                                <ul class="footer-newsletter__social-links">#}
+{#                                    <li class="footer-newsletter__social-link footer-newsletter__social-link--facebook">#}
+{#                                        <a href="https://www.facebook.com/"#}
+{#                                           target="_blank"><i#}
+{#                                                class="fab fa-facebook-f"></i></a>#}
+{#                                    </li>#}
+{#                                    <li class="footer-newsletter__social-link footer-newsletter__social-link--twitter">#}
+{#                                        <a href="https://www.twitter.com/"#}
+{#                                           target="_blank"><i#}
+{#                                                class="fab fa-twitter"></i></a></li>#}
+{#                                    <li class="footer-newsletter__social-link footer-newsletter__social-link--youtube">#}
+{#                                        <a href="https://www.youtube.com/"#}
+{#                                           target="_blank"><i#}
+{#                                                class="fab fa-youtube"></i></a></li>#}
+{#                                    <li class="footer-newsletter__social-link footer-newsletter__social-link--instagram">#}
+{#                                        <a href="https://www.instagram.com/"#}
+{#                                           target="_blank"><i#}
+{#                                                class="fab fa-instagram"></i></a>#}
+{#                                    </li>#}
+{##}
+{#                                </ul>#}
 {#                            </div>#}
-{#                            <ul class="footer-newsletter__social-links">#}
-{#                                <li class="footer-newsletter__social-link footer-newsletter__social-link--facebook">#}
-{#                                    <a href="https://www.facebook.com/"#}
-{#                                       target="_blank"><i#}
-{#                                            class="fab fa-facebook-f"></i></a>#}
-{#                                </li>#}
-{#                                <li class="footer-newsletter__social-link footer-newsletter__social-link--twitter">#}
-{#                                    <a href="https://www.twitter.com/"#}
-{#                                       target="_blank"><i#}
-{#                                            class="fab fa-twitter"></i></a></li>#}
-{#                                <li class="footer-newsletter__social-link footer-newsletter__social-link--youtube">#}
-{#                                    <a href="https://www.youtube.com/"#}
-{#                                       target="_blank"><i#}
-{#                                            class="fab fa-youtube"></i></a></li>#}
-{#                                <li class="footer-newsletter__social-link footer-newsletter__social-link--instagram">#}
-{#                                    <a href="https://www.instagram.com/"#}
-{#                                       target="_blank"><i#}
-{#                                            class="fab fa-instagram"></i></a>#}
-{#                                </li>#}
-{##}
-{#                            </ul>#}
 {#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-            {#                <div class="site-footer__bottom">#}
-            {#                    <div style="margin-left: 18%" class="site-footer__copyright">Разработано <a target="_blank" href="http://desite.pro/">DESITE.PRO</a></div>#}
-            {#                </div>#}
-{#        </div>#}
-{##}
-{#    </footer><!-- site__footer / end -->#}
+                    </div>
+                </div>
+                <div class="site-footer__bottom">
+                    <div style="margin-left: 18%" class="site-footer__copyright">Разработано <a target="_blank"
+                                                                                                href="http://desite.pro/">DESITE.PRO</a>
+                    </div>
+                </div>
+            </div>
+
+    </footer><!-- site__footer / end -->
 </div><!-- site / end --></body>
 </div>
 </body>
